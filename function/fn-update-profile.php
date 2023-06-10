@@ -4,7 +4,7 @@ include_once "./fn-databese-connect.php";
 session_start();
 $errors = array(); // $errors = []
 
-// Mendapatkan data yang dikirim melalui form test
+// Mendapatkan data yang dikirim melalui form ok mas
 $id = $_SESSION['id'];
 $name = $_POST['name'];
 $email = $_POST['email'];
