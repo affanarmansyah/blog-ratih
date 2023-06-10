@@ -64,10 +64,6 @@ if (!isset($_SESSION['logged_in'])) {
                         <?php if (isset($_GET['error'])) { ?>
                           <p class="error" style="background: #f2dede; color: #A94442; padding: 8px; width: 100%; border-radius: 5px; font-size: 13px; margin-top: 10px;"><?php echo $_GET['error']; ?></p>
                         <?php } ?>
-                        <?php if (isset($_GET['wrong'])) { ?>
-                          <p class="error" style="background: #f2dede; color: #A94442; padding: 8px; width: 100%; border-radius: 5px; font-size: 13px; margin-top: 10px;"><?php echo $_GET['wrong']; ?></p>
-                        <?php } ?>
-
                       </div>
                       <div class="form-group">
                         <label for="exampleName1">Name</label>
@@ -140,17 +136,17 @@ if (!isset($_SESSION['logged_in'])) {
             header("refresh:0;./dashboard.php");
           }
         });
-        $('#quickForm').validate({
+        $('#quickForsm').validate({
           rules: {
             name: {
               required: true,
               minlength: 3
 
             },
-            // email: {
-            //   required: true,
-            //   email: true,
-            // },
+            email: {
+              required: true,
+              email: true,
+            },
             // password: {
             //   required: true,
             //   minlength: 6
@@ -165,10 +161,10 @@ if (!isset($_SESSION['logged_in'])) {
               required: "Please provide a name",
               minlength: "Nama harus lebih dari 3 karakter"
             },
-            // email: {
-            //   required: "Please enter a email address",
-            //   email: "Please enter a valid email address"
-            // },
+            email: {
+              required: "Please enter a email address",
+              email: "Please enter a valid email address"
+            },
             // password: {
             //   required: "Please provide a password",
             //   minlength: "Password harus lebih dari 6 karakter"

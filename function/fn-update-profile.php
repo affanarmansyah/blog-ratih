@@ -2,16 +2,23 @@
 include_once "./fn-databese-connect.php";
 
 session_start();
+$errors = array(); // $errors = []
 
 // Mendapatkan data yang dikirim melalui form
 $id = $_SESSION['id'];
 $name = $_POST['name'];
 $email = $_POST['email'];
-$password = md5($_POST['password']);
-$confirm_password = md5($_POST['confirm_password']);
+$password = $_POST['password'];
+$confirm_password = $_POST['confirm_password'];
+
+if (!empty($password) and strlen($password) < 6) { // apakah passwordnya tidak kosong dan kurang dari 6? false && true
+    $errors[] = 'Password harus lebih dari 6 angka,silahkan coba kembali';
+}
+
+$password = md5($password);
+$confirm_password = md5($confirm_password);
 
 // Validasi data yang diterima
-$errors = array(); // $errors = []
 
 if (empty($name)) {
     $errors[] = 'Name is required'; // $errors[0] = ['Name is required']
@@ -23,16 +30,9 @@ if (empty($email)) {
     $errors[] = 'Invalid email address';
 }
 
-if (empty($password)) {
-    $errors[] = 'Password is required';
-} elseif (strlen($password) < 6) {
-    header("location: ../view/edit-profile.php?error=Email atau password anda salah, coba kembali.");
-}
 
 if ($password !== $confirm_password) {
-    $wrong = "Password dan konfirmasi password tidak sama.";
-    header("location: ../view/edit-profile.php?wrong=Password dan konfirmasi password tidak sama.");
-    exit();
+    $errors[] = 'Password dan konfirmasi password tidak sama';
 }
 // Cek apakah ada kesalahan validasi
 if (!empty($errors)) {
@@ -59,8 +59,12 @@ if (!empty($errors)) {
         // Pindahkan foto ke folder upload
         move_uploaded_file($photo_tmp_name, $photo_path);
     }
-    $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', password='$password', photo='$photo_name' WHERE id='$id'");
 
+
+    $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', password='$password', photo='$photo_name' WHERE id='$id'");
+    if (empty($password)) {
+        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', photo='$photo_name' WHERE id='$id'");
+    }
 
     if ($update) {
         echo "<script> alert ('Data Berhasil Di Update')</script>";
