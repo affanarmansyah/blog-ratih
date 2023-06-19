@@ -1,5 +1,6 @@
 <?php
 include_once 'menu.php';
+include_once '../function/fn-databese-connect.php';
 ?>
 
 <?php
@@ -38,7 +39,7 @@ if (!isset($_SESSION['logged_in'])) {
                     <div class="container-fluid">
                         <div class="row mb-2">
                             <div class="col-sm-6">
-                                <h1>Dashboard</h1>
+                                <h1>News</h1>
                             </div>
                             <div class="col-sm-6">
                                 <ol class="breadcrumb float-sm-right">
@@ -47,6 +48,7 @@ if (!isset($_SESSION['logged_in'])) {
                                 </ol>
                             </div>
                         </div>
+                        <div class="text-center"><a href="create_news.php" style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; border-radius: 5px;">+ &nbsp; Create News</a></div>
                     </div><!-- /.container-fluid -->
                 </section>
                 <section class="content">
@@ -56,53 +58,44 @@ if (!isset($_SESSION['logged_in'])) {
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th style="width: 10px">Id</th>
-                                        <th>News</th>
-                                        <th>Category</th>
-                                        <th style="width: 40px">View</th>
+                                        <th>No.</th>
+                                        <th>Title</th>
+                                        <th>Image</th>
+                                        <th>Description</th>
+                                        <th>View</th>
+                                        <th>Status</th>
+                                        <th>Created_at</th>
+                                        <th>Updated_at</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1.</td>
-                                        <td>Update software</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-danger">55%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2.</td>
-                                        <td>Clean database</td>
-                                        <td>
-                                            <div class="progress progress-xs">
-                                                <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-warning">70%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3.</td>
-                                        <td>Cron job running</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-primary">30%</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4.</td>
-                                        <td>Fix and squish bugs</td>
-                                        <td>
-                                            <div class="progress progress-xs progress-striped active">
-                                                <div class="progress-bar bg-success" style="width: 90%"></div>
-                                            </div>
-                                        </td>
-                                        <td><span class="badge bg-success">90%</span></td>
-                                    </tr>
+                                    <?php
+                                    $query = "SELECT * FROM table_news order by id ASC";
+                                    $result = mysqli_query($conn, $query);
+
+                                    $no = 1;
+
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                    ?>
+                                        <tr>
+                                            <td><?php echo $no ?></td>
+                                            <td><?php echo $row['title']; ?></td>
+                                            <td></td>
+                                            <td><?php echo $row['description']; ?></td>
+                                            <td><?php echo $row['view']; ?></td>
+                                            <td><?php echo $row['status']; ?></td>
+                                            <td><?php echo $row['created_at']; ?></td>
+                                            <td><?php echo $row['updated_at']; ?></td>
+                                            <td>
+                                                <a style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; " href="edit_news.php?id=<?php echo $row['id']; ?>">Edit</a>
+                                                <a style="background-color: salmon; padding: 5px;  border: none; color: #fff; " href="delete_news.phpid=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus berita ini?')">Hapus</a>
+                                            </td>
+                                        </tr>
+                                    <?php
+                                        $no++;
+                                    }
+                                    ?>
                                 </tbody>
                             </table>
                         </div>

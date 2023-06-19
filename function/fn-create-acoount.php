@@ -16,6 +16,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
+    if (empty($email)) {
+        header("location: ../view/create-account.php?error=Email Tidak Boleh Kosong");
+        exit();
+    } else {
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            header("location: ../view/create-account.php?error=Email Tidak Valid");
+            exit();
+        }
+    }
+
     if (empty($salah)) {
         $sql = "INSERT INTO table_users (email, password, name, photo, created_at, updated_at) 
             VALUES ('$email', '$password', '$name', '$photo', '$created_at', '$updated_at')";
