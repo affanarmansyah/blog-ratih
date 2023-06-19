@@ -67,8 +67,8 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item" style="margin-top: 400px;">
-                    <a href="../function/fn-logout.php" class="nav-link">
+                <li class="nav-item">
+                    <a href=" ../function/fn-logout.php" class="nav-link">
                         <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
                         <p>
                             LogOut
