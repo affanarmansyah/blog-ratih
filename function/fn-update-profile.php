@@ -4,7 +4,7 @@ include_once "./fn-databese-connect.php";
 session_start();
 $errors = array();
 
-$id = $_SESSION['id'];
+$id = $_SESSION['id']; // test anggri
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
