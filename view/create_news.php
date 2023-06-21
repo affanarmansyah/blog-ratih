@@ -1,23 +1,33 @@
+<?php
+include_once 'menu.php';
+
+?>
 <!DOCTYPE html>
 <html>
 
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AdminLTE 3 | General Form Elements</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
             background-color: #f2f2f2;
-            padding: 20px;
         }
 
         h1 {
-            color: #333333;
             text-align: center;
-            margin-bottom: 30px;
         }
 
         form {
             max-width: 400px;
-            margin: 0 auto;
+            margin-left: 270px;
             background-color: #ffffff;
             padding: 20px;
             border-radius: 5px;
@@ -36,7 +46,7 @@
         select,
         input[type="datetime-local"] {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid #cccccc;
             border-radius: 4px;
             box-sizing: border-box;
@@ -52,6 +62,7 @@
         }
 
         select {
+            font-family: Arial, sans-serif;
             height: 35px;
         }
 
@@ -76,9 +87,21 @@
 </head>
 
 <body>
-    <h1>Create News</h1>
+    <section class="content-header">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Create News</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item active">General Form</li>
+                </ol>
+            </div>
+        </div>
+    </section>
 
-    <form action="../function/fn-create-news.php">
+    <form action="../function/fn-create-news.php" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
 
@@ -86,21 +109,23 @@
         <input type="file" name="image">
 
         <label for="description">Description:</label>
-        <textarea id="description" name="description" required></textarea>
-
-        <label for="view">View Count:</label>
-        <input type="number" id="view" name="view" required>
+        <input type="text" name="description" required></input>
 
         <label for="status">Status:</label>
         <select id="status" name="status" required>
-            <option value="draft">Draft</option>
-            <option value="published">Published</option>
+            <option value="Active">Active</option>
+            <option value="Non Active">Non Active</option>
         </select>
-
-
-
         <input type="submit" value="Create">
     </form>
+    <!-- jQuery -->
+    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- bs-custom-file-input -->
+    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
 </body>
 
 </html>

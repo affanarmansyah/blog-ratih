@@ -57,7 +57,6 @@ if (!empty($errors)) {
     } else {
         $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email',photo='$photo_name' WHERE id='$id'");
     }
-
     if ($update) {
         echo "<script> alert ('Data Berhasil DiUbah')</script>";
         header("refresh:0;../view/edit-profile.php");
