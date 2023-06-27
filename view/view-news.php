@@ -1,6 +1,7 @@
 <?php
 include_once 'menu.php';
 include_once '../function/fn-databese-connect.php';
+include_once '../function/fn-view-news.php';
 ?>
 
 <?php
@@ -77,22 +78,9 @@ if (!isset($_SESSION['logged_in'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $limit = 10;
-                                    $page = isset($_GET['page']) ? $_GET['page'] : 1;
-                                    $offset = ($page - 1) * $limit; // Offset data
-
-                                    if (isset($_GET['cari_disini'])) {
-                                        $cari_disini = $_GET['cari_disini'];
-                                        $query = "SELECT * FROM table_news where title LIKE '%" . $cari_disini . "%' OR status LIKE '%" . $cari_disini . "%' OR created_at LIKE '%" . $cari_disini . "%' LIMIT $limit OFFSET $offset";
-                                    } else {
-                                        $query = "SELECT * FROM table_news order by id DESC LIMIT $limit OFFSET $offset";
-                                    }
+                                    $query = "SELECT * FROM table_news order by id DESC LIMIT $limit OFFSET $offset";
                                     $result = mysqli_query($conn, $query);
-
-                                    $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_news")) / $limit);
-
                                     $no = ($page - 1) * $limit + 1;
-
                                     while ($row = mysqli_fetch_assoc($result)) {
                                     ?>
                                         <tr>

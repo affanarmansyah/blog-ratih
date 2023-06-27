@@ -13,7 +13,7 @@
                 <?php
                 session_start();
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
-                    $profileImage = "../assets/img/default-profile.jpg";
+                    $profileImage = "../assets/img/default-profile.png";
                     if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {
                         $profileImage = "../assets/img/" . $_SESSION['photo'];
                     }

@@ -1,25 +1,11 @@
 <?php
-include_once "./fn-databese-connect.php";
+$limit = 10;
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$offset = ($page - 1) * $limit; // Offset data
+$total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_news")) / $limit);
 
-$query = mysqli_query($conn, "select * from table_news where id order by id desc");
-$limitPerPage = 1;
-$totalData = mysqli_num_rows($query);
-$jumlahPagination = ceil($totalData / $limitPerPage); // hasilnya bisa jadi pecahan atau koma2an 1001 / 100 = 10.01 butuh fungsi ceil selalu pembulatan ke atas = 11 
 
-// mencari limit untuk keperluan pencarian di database
-$dataAwal = ($halamanAktif * $limitPerPage) - $limitPerPage; // (1 * 2) - 2 = 0 // (2 * 2) - 2 = 2 // (3 * 2) - 3 = 4
-$ambildata_perhalaman = mysqli_query($conn, "select * from table_news where id order by id desc LIMIT $limitPerPage offset $dataAwal");
-$dataViewMahasiswa = mysqli_fetch_all($ambildata_perhalaman, MYSQLI_ASSOC);
-
-$jumlahLink = 3;
-if ($halamanAktif > $jumlahLink) {
-    $start_number = $halamanAktif - $jumlahLink;
-} else {
-    $start_number = 1;
-}
-
-if ($halamanAktif < ($jumlahPagination - $jumlahLink)) {
-    $end_number = $halamanAktif + $jumlahLink;
-} else {
-    $end_number = $jumlahPagination;
+if (isset($_GET['cari_disini'])) {
+    $cari_disini = $_GET['cari_disini'];
+    $query = "SELECT * FROM table_news where title LIKE '%" . $cari_disini . "%' OR status LIKE '%" . $cari_disini . "%' OR created_at LIKE '%" . $cari_disini . "%' LIMIT $limit OFFSET $offset";
 }
