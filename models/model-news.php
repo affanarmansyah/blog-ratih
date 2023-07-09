@@ -2,7 +2,8 @@
 
 // function view-news.php
 
-function viewNewses($page, $limit = 10)
+// fungsi ini reternnya adalah row dari database dan totalnya
+function listNews($page, $cari, $limit = 10)
 {
     include_once '../function/fn-databese-connect.php';
 
@@ -10,8 +11,8 @@ function viewNewses($page, $limit = 10)
     $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_news")) / $limit);
 
     $query = "SELECT * FROM table_news order by id DESC LIMIT $limit OFFSET $offset";
-    if (isset($_GET['cari_disini'])) {
-        $cari_disini = $_GET['cari_disini'];
+    if (isset($cari)) {
+        $cari_disini = $cari;
         $query = "SELECT * FROM table_news where title LIKE '%" . $cari_disini . "%' OR status LIKE '%" . $cari_disini . "%' OR created_at LIKE '%" . $cari_disini . "%'  order by id DESC LIMIT $limit OFFSET $offset";
         $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_news where title LIKE '%" . $cari_disini . "%' OR status LIKE '%" . $cari_disini . "%' OR created_at LIKE '%" . $cari_disini . "%'")) / $limit);
     }
@@ -19,14 +20,30 @@ function viewNewses($page, $limit = 10)
     $result = mysqli_query($conn, $query);
     $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
+    // $testArray = ["sdfsd" => 1, 2, 3, 4];
+
+    // print_r($testArray);
+    // print_r($testArray[0]);
+
+    // cara membuat array object
     return [
         'row' => $row,
         'total_pages' => $total_pages
     ];
 }
 
-// function create-news.php
+function detailNews($id)
+{
+    include_once '../function/fn-databese-connect.php';
 
+    $query = "SELECT * FROM table_news WHERE id = '$id';";
+    $sql = mysqli_query($conn, $query);
+
+    $result = mysqli_fetch_assoc($sql);
+    return $result;
+}
+
+// function create-news.php
 function create_news($data, $files)
 {
     include_once '../function/fn-databese-connect.php';
@@ -39,7 +56,7 @@ function create_news($data, $files)
     if (isset($image) && $image['error'] == UPLOAD_ERR_OK) {
         $image_name = $image['name'];
         $image_tmp_name = $image['tmp_name'];
-        $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
+        // $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
         $upload_directory = "../assets/img/";
         $image_path = $upload_directory . $image_name;
 
@@ -48,13 +65,13 @@ function create_news($data, $files)
     $query = "INSERT INTO table_news (title,image,description,status) VALUES ('$title','$image_name','$description','$status')";
     $result = mysqli_query($conn, $query);
     mysqli_close($conn);
+
     return true;
 }
 
 
 // function Update news
-
-function update_news($data, $files)
+function updateNews($data, $files)
 {
     include_once '../function/fn-databese-connect.php';
     $id = $data['id'];
@@ -66,7 +83,7 @@ function update_news($data, $files)
     if (isset($image) && $image['error'] == UPLOAD_ERR_OK) {
         $image_name = $image['name'];
         $image_tmp_name = $image['tmp_name'];
-        $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
+        // $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
 
         // Tentukan lokasi folder untuk menyimpan foto
         $upload_directory = "../assets/img/";
@@ -91,11 +108,8 @@ function update_news($data, $files)
 
 
 // function Delete news
-
 function delete($id)
 {
     include_once '../function/fn-databese-connect.php';
-
-    mysqli_query($conn, "DELETE from table_news WHERE id='$id'");
-    return true;
+    return mysqli_query($conn, "DELETE from table_news WHERE id='$id'");
 }

@@ -1,22 +1,22 @@
 <?php
 include_once 'menu.php';
-include_once '../function/fn-databese-connect.php';
+include_once '../models/model-news.php';
 
-
-
-if (isset($_GET['id'])) {
-    $id = $_GET['id'];
-
-    $query = "SELECT * FROM table_news WHERE id = '$id';";
-    $sql = mysqli_query($conn, $query);
-
-    $result = mysqli_fetch_assoc($sql);
-
-    $image = $result['image'];
-    $title = $result['title'];
-    $description = $result['description'];
-    $status = $result['status'];
+// proses updateNews
+if (isset($_POST['submit'])) {
+    if ($_POST['submit'] == "update") {
+        $berhasil = updateNews($_POST, $_FILES);
+        if ($berhasil) {
+            header("Location:../view/view-news.php");
+            exit();
+        } else {
+            echo $berhasil;
+            exit();
+        }
+    }
 }
+
+$result = detailNews(isset($_GET['id']) ? $_GET['id'] : '')
 
 ?>
 <!DOCTYPE html>
@@ -118,21 +118,21 @@ if (isset($_GET['id'])) {
         </div>
     </section>
 
-    <form action="../models/proses.php" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $id; ?>">
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="<?php echo $title; ?>" required>
+        <input type="text" id="title" name="title" value="<?php echo $result['title']; ?>" required>
 
         <label for="image">Image URL:</label>
-        <img src="../assets/img/<?php echo $image; ?>" style="width: 50px; height: 50px;">
+        <img src="../assets/img/<?php echo $result['image']; ?>" style="width: 50px; height: 50px;">
         <br>
         <input type="file" name="image" style="margin-top: 10px;">
 
         <label for="description">Description:</label>
-        <input type="text" name="description" value="<?php echo $description; ?>" required></input>
+        <input type="text" name="description" value="<?php echo $result['description']; ?>" required></input>
 
         <label for="status">Status:</label>
-        <select id="status" name="status" value="<?php echo $status; ?>" required>
+        <select id="status" name="status" value="<?php echo $result['status']; ?>" required>
             <option value="Active">Active</option>
             <option value="Non Active">Non Active</option>
         </select>

@@ -2,6 +2,20 @@
 include_once 'menu.php';
 include_once '../models/model-news.php';
 
+// proses addNews
+if (isset($_POST['submit'])) {
+    if ($_POST['submit'] == "add") {
+        $berhasil = create_news($_POST, $_FILES);
+        if ($berhasil) {
+            header("Location:../view/view-news.php");
+            exit();
+        } else {
+            echo $berhasil;
+            exit();
+        }
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -102,7 +116,7 @@ include_once '../models/model-news.php';
         </div>
     </section>
 
-    <form action="../models/proses.php" method="POST" enctype="multipart/form-data">
+    <form action="" method="POST" enctype="multipart/form-data">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" required>
 

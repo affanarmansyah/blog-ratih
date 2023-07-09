@@ -4,8 +4,8 @@ include_once '../models/model-news.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $cari = isset($_GET['cari_disini']) ? $_GET['cari_disini'] : '';
-$limit = 10;
-$result = viewNewses($page, $limit, $cari);
+$limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
+$result = listNews($page, $cari, $limit);
 
 if (!isset($_SESSION['logged_in'])) {
     header("refresh:0;../index.php");
