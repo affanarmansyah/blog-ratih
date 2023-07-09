@@ -1,6 +1,22 @@
 <?php
 include_once 'menu.php';
-include_once '../models/model-news.php';
+include_once '../function/fn-databese-connect.php';
+
+
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+
+    $query = "SELECT * FROM table_news WHERE id = '$id';";
+    $sql = mysqli_query($conn, $query);
+
+    $result = mysqli_fetch_assoc($sql);
+
+    $image = $result['image'];
+    $title = $result['title'];
+    $description = $result['description'];
+    $status = $result['status'];
+}
 
 ?>
 <!DOCTYPE html>
@@ -91,7 +107,7 @@ include_once '../models/model-news.php';
     <section class="content-header">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Create News</h1>
+                <h1>Update News</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -103,21 +119,24 @@ include_once '../models/model-news.php';
     </section>
 
     <form action="../models/proses.php" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="id" value="<?php echo $id; ?>">
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
+        <input type="text" id="title" name="title" value="<?php echo $title; ?>" required>
 
         <label for="image">Image URL:</label>
-        <input type="file" name="image">
+        <img src="../assets/img/<?php echo $image; ?>" style="width: 50px; height: 50px;">
+        <br>
+        <input type="file" name="image" style="margin-top: 10px;">
 
         <label for="description">Description:</label>
-        <input type="text" name="description" required></input>
+        <input type="text" name="description" value="<?php echo $description; ?>" required></input>
 
         <label for="status">Status:</label>
-        <select id="status" name="status" required>
+        <select id="status" name="status" value="<?php echo $status; ?>" required>
             <option value="Active">Active</option>
             <option value="Non Active">Non Active</option>
         </select>
-        <input type="submit" name="submit" value="add">
+        <input type="submit" name="submit" value="update">
     </form>
     <!-- jQuery -->
     <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

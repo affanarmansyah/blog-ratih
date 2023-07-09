@@ -1,13 +1,12 @@
 <?php
 include_once 'menu.php';
-include_once '../function/fn-databese-connect.php';
-include_once '../function/fn-view-news.php';
-?>
+include_once '../models/model-news.php';
 
-<?php
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$cari = isset($_GET['cari_disini']) ? $_GET['cari_disini'] : '';
+$limit = 10;
+$result = viewNewses($page, $limit, $cari);
 
-// $_SESSION['username'] = $username;
-// $_SESSION['logged_in'] = true;
 if (!isset($_SESSION['logged_in'])) {
     header("refresh:0;../index.php");
 } else {
@@ -33,7 +32,6 @@ if (!isset($_SESSION['logged_in'])) {
         <div class="wrapper">
             <!-- Main Sidebar Container -->
 
-
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
                 <section class="content-header">
@@ -52,7 +50,15 @@ if (!isset($_SESSION['logged_in'])) {
                         <div class="text-center"><a href="create_news.php" style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; border-radius: 5px;">+ &nbsp; Create News</a></div>
                     </div><!-- /.container-fluid -->
                 </section>
+
                 <section class="content">
+                    <?php ?>
+
+                    <div class="alert " style="background-color: #b1dfca;">
+                        A simple primary alert—check it out!
+                    </div>
+
+                    <?php ?>
                     <div class="card">
                         <form class="card-header" method="GET">
                             <i class="fas fa-search"></i>
@@ -78,22 +84,23 @@ if (!isset($_SESSION['logged_in'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $query = "SELECT * FROM table_news order by id DESC LIMIT $limit OFFSET $offset";
-                                    $result = mysqli_query($conn, $query);
+                                    echo $result['total_pages'] == 0 ? '<tr><td colspan="7">Tidak ada data ditemukan</td></tr>' : '';
+
                                     $no = ($page - 1) * $limit + 1;
-                                    while ($row = mysqli_fetch_assoc($result)) {
+
+                                    foreach ($result['row'] as $row) {
                                     ?>
                                         <tr>
-                                            <td><?php echo $no ?></td>
-                                            <td><img src="../assets/img/<?php echo $row['image']; ?>" style="width: 50px; height: 50px;"></td>
+                                            <td><?php echo $no; ?></td>
+                                            <td><img src="../assets/img/<?php echo $row['image'] != '' ? $row['image'] : 'default-news.png'; ?>" style="width: 50px; height: 50px;"></td>
                                             <td><?php echo $row['title']; ?></td>
                                             <td><?php echo $row['status']; ?></td>
                                             <td><?php echo $row['created_at']; ?></td>
                                             <td><?php echo $row['updated_at']; ?></td>
                                             <td>
                                                 <a style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; " href="edit_news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-edit" title="Edit"></i></a>
-                                                <a style="background-color: salmon; padding: 5px;  border: none; color: #fff; " href="delete_news.phpid=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus berita ini?')"><i class="fas fa-trash-alt" title="Delete"></i></a>
-                                                <a style="background-color: cornflowerblue; padding: 5px;  border: none; color: #fff; " href="edit_news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-eye" title="View"></i></a>
+                                                <a style="background-color: salmon; padding: 5px;  border: none; color: #fff; " href="../models/proses.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus berita ini?')"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                                                <a style="background-color: cornflowerblue; padding: 5px;  border: none; color: #fff; " href=""><i class="fas fa-eye" title="View"></i></a>
                                             </td>
                                         </tr>
                                     <?php
@@ -101,6 +108,7 @@ if (!isset($_SESSION['logged_in'])) {
                                     }
                                     ?>
                                 </tbody>
+
                             </table>
                         </div>
                         <!-- /.card-body -->
@@ -108,19 +116,19 @@ if (!isset($_SESSION['logged_in'])) {
                             <ul class="pagination pagination-sm m-0 float-right">
                                 <?php
                                 if ($page > 1) {
-                                    echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '">&laquo;</a></li>';
+                                    echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '&cari_disini=' . $cari . '">&laquo;</a></li>';
                                 }
 
-                                for ($i = 1; $i <= $total_pages; $i++) {
+                                for ($i = 1; $i <= $result['total_pages']; $i++) {
                                     echo '<li class="page-item';
                                     if ($i == $page) {
                                         echo ' active';
                                     }
-                                    echo '"><a class="page-link" href="?page=' . $i . '">' . $i . '</a></li>';
+                                    echo '"><a class="page-link" href="?page=' . $i . '&cari_disini=' . $cari . '">' . $i . '</a></li>';
                                 }
 
-                                if ($page < $total_pages) {
-                                    echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '">&raquo;</a></li>';
+                                if ($page < $result['total_pages']) {
+                                    echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '&cari_disini=' . $cari . '">&raquo;</a></li>';
                                 }
                                 ?>
                             </ul>
@@ -128,7 +136,6 @@ if (!isset($_SESSION['logged_in'])) {
                     </div>
                 </section>
             </div>
-
             <!-- /.content-wrapper -->
 
             <!-- Control Sidebar -->
