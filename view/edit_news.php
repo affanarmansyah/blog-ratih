@@ -1,4 +1,5 @@
 <?php
+
 include_once 'menu.php';
 include_once '../models/model-news.php';
 
@@ -119,7 +120,7 @@ $result = detailNews(isset($_GET['id']) ? $_GET['id'] : '')
     </section>
 
     <form action="" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $id; ?>">
+        <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="<?php echo $result['title']; ?>" required>
 

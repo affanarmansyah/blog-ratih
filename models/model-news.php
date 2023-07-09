@@ -111,5 +111,8 @@ function updateNews($data, $files)
 function delete($id)
 {
     include_once '../function/fn-databese-connect.php';
-    return mysqli_query($conn, "DELETE from table_news WHERE id='$id'");
+
+    mysqli_query($conn, "DELETE from table_news WHERE id='$id'");
+    print_r("DELETE from table_news WHERE id='$id'");
+    return true;
 }
