@@ -1,4 +1,4 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="height: 146vh;">
     <!-- Brand Logo -->
     <a href="../assets/plugin/AdminLTE-3.2.0/index3.html" class="brand-link">
         <img src="../assets/plugin/AdminLTE-3.2.0/dist/img/ratih.webp" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
@@ -13,7 +13,7 @@
                 <?php
                 session_start();
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
-                    $profileImage = "../assets/img/default-profile.jpg";
+                    $profileImage = "../assets/img/default-profile.png";
                     if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {
                         $profileImage = "../assets/img/" . $_SESSION['photo'];
                     }
@@ -52,7 +52,7 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="view-news.php" class="nav-link">
                         <i class="nav-icon fas fa-blog"></i>
                         <p>
                             News

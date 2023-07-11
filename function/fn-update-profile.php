@@ -4,7 +4,7 @@ include_once "./fn-databese-connect.php";
 session_start();
 $errors = array();
 
-$id = $_SESSION['id'];
+$id = $_SESSION['id']; // test affan
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -53,11 +53,15 @@ if (!empty($errors)) {
     }
     if (!empty($password)) {
         $password = md5($password);
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', password='$password', photo='$photo_name' WHERE id='$id'");
+        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', password='$password' WHERE id='$id'");
     } else {
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email',photo='$photo_name' WHERE id='$id'");
+        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email' WHERE id='$id'");
     }
-
+    if (!empty($photo_name)) {
+        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', photo='$photo_name' WHERE id='$id'");
+    } else {
+        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email' WHERE id='$id'");
+    }
     if ($update) {
         echo "<script> alert ('Data Berhasil DiUbah')</script>";
         header("refresh:0;../view/edit-profile.php");
