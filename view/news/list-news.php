@@ -1,6 +1,8 @@
 <?php
-include_once '../menu.php';
-include_once '../../models/model-news.php';
+include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+
+include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $cari = isset($_GET['cari_disini']) ? $_GET['cari_disini'] : '';
@@ -9,7 +11,7 @@ $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
 if (isset($_GET['id'])) {
     $berhasil = deleteNews($_GET['id']);
     if ($berhasil) {
-        header("Location:../view/view-news.php?berhasil=<b>Well done!</b> News deleted");
+        header("Location:" . BASE_URL_BLOG_RATIH . "/view/news/list-news.php?berhasil=<b>Well done!</b> News deleted");
         exit();
     } else {
         echo $berhasil;
@@ -35,9 +37,9 @@ if (!isset($_SESSION['logged_in'])) {
         <!-- Google Font: Source Sans Pro -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
         <!-- Font Awesome -->
-        <link rel="stylesheet" href="../../assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+        <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
         <!-- Theme style -->
-        <link rel="stylesheet" href="../../assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+        <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
     </head>
 
     <body class="hold-transition sidebar-mini">
@@ -59,7 +61,7 @@ if (!isset($_SESSION['logged_in'])) {
                                 </ol>
                             </div>
                         </div>
-                        <div class="mt-3"><a href="create-news.php" style="background-color: #007bff; padding: 5px;  border: none; color: #fff; border-radius: 5px;">+ &nbsp; Create News</a></div>
+                        <div class="mt-3"><a href="<?= BASE_URL_BLOG_RATIH ?>/view/news/create-news.php" style="background-color: #007bff; padding: 5px;  border: none; color: #fff; border-radius: 5px;">+ &nbsp; Create News</a></div>
                     </div><!-- /.container-fluid -->
                 </section>
 
@@ -105,15 +107,15 @@ if (!isset($_SESSION['logged_in'])) {
                                     ?>
                                         <tr>
                                             <td><?php echo $no; ?></td>
-                                            <td><img src="../../assets/img/<?php echo $row['image'] != '' ? $row['image'] : 'default-news.png'; ?>" style="width: 50px; height: 50px;"></td>
+                                            <td><img src="<?= BASE_URL_BLOG_RATIH ?>/assets/img/<?php echo $row['image'] != '' ? $row['image'] : 'default-news.png'; ?>" style="width: 50px; height: 50px;"></td>
                                             <td><?php echo $row['title']; ?></td>
                                             <td><?php echo $row['status']; ?></td>
                                             <td><?php echo $row['created_at']; ?></td>
                                             <td><?php echo $row['updated_at']; ?></td>
                                             <td>
-                                                <a style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; " href="edit-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-edit" title="Edit"></i></a>
-                                                <a style="background-color: salmon; padding: 5px;  border: none; color: #fff; " href="view-news.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus berita ini?')"><i class="fas fa-trash-alt" title="Delete"></i></a>
-                                                <a style="background-color: cornflowerblue; padding: 5px;  border: none; color: #fff; " href="detail-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-eye" title="View"></i></a>
+                                                <a style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/edit-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-edit" title="Edit"></i></a>
+                                                <a style="background-color: salmon; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/view-news.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus berita ini?')"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                                                <a style="background-color: cornflowerblue; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/detail-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-eye" title="View"></i></a>
                                             </td>
                                         </tr>
                                     <?php
@@ -160,13 +162,13 @@ if (!isset($_SESSION['logged_in'])) {
         <!-- ./wrapper -->
 
         <!-- jQuery -->
-        <script src="../../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+        <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
         <!-- Bootstrap 4 -->
-        <script src="../../assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- bs-custom-file-input -->
-        <script src="../../assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+        <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
         <!-- AdminLTE App -->
-        <script src="../../assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+        <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
 
         <!-- Page specific script -->
         <script>

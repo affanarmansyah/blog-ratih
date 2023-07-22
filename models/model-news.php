@@ -5,7 +5,7 @@
 // fungsi ini reternnya adalah row dari database dan totalnya
 function listNews($page, $cari, $limit = 10)
 {
-    include_once '../function/fn-databese-connect.php';
+    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
 
     $offset = ($page - 1) * $limit; // Offset data
     $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_news")) / $limit);
@@ -35,7 +35,7 @@ function listNews($page, $cari, $limit = 10)
 // function create-news.php
 function createNews($data, $files)
 {
-    include_once '../function/fn-databese-connect.php';
+    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
 
     $title = $data['title'];
     $image = $files['image'];
@@ -46,7 +46,7 @@ function createNews($data, $files)
         $image_name = $image['name'];
         $image_tmp_name = $image['tmp_name'];
         // $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
-        $upload_directory = "../assets/img/";
+        $upload_directory = BASE_DIR_BLOG_RATIH . "/assets/img/";
         $image_path = $upload_directory . $image_name;
 
         move_uploaded_file($image_tmp_name, $image_path);
