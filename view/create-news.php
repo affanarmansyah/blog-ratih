@@ -1,14 +1,13 @@
 <?php
-
 include_once 'menu.php';
 include_once '../models/model-news.php';
 
-// proses updateNews
+// proses addNews
 if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == "update") {
-        $berhasil = updateNews($_POST, $_FILES);
+    if ($_POST['submit'] == "add") {
+        $berhasil = createNews($_POST, $_FILES);
         if ($berhasil) {
-            header("Location:../view/view-news.php");
+            header("Location:../view/view-news.php?berhasil=<b>Well done!</b> News created");
             exit();
         } else {
             echo $berhasil;
@@ -16,8 +15,6 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-
-$result = detailNews(isset($_GET['id']) ? $_GET['id'] : '')
 
 ?>
 <!DOCTYPE html>
@@ -108,7 +105,7 @@ $result = detailNews(isset($_GET['id']) ? $_GET['id'] : '')
     <section class="content-header">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Update News</h1>
+                <h1>Create News</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -120,24 +117,21 @@ $result = detailNews(isset($_GET['id']) ? $_GET['id'] : '')
     </section>
 
     <form action="" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="<?php echo $result['title']; ?>" required>
+        <input type="text" id="title" name="title" required>
 
         <label for="image">Image URL:</label>
-        <img src="../assets/img/<?php echo $result['image']; ?>" style="width: 50px; height: 50px;">
-        <br>
-        <input type="file" name="image" style="margin-top: 10px;">
+        <input type="file" name="image">
 
         <label for="description">Description:</label>
-        <input type="text" name="description" value="<?php echo $result['description']; ?>" required></input>
+        <input type="text" name="description" required></input>
 
         <label for="status">Status:</label>
-        <select id="status" name="status" value="<?php echo $result['status']; ?>" required>
+        <select id="status" name="status" required>
             <option value="Active">Active</option>
             <option value="Non Active">Non Active</option>
         </select>
-        <input type="submit" name="submit" value="update">
+        <input type="submit" name="submit" value="add">
     </form>
     <!-- jQuery -->
     <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

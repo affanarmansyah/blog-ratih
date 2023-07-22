@@ -1,3 +1,23 @@
+<?php
+// Create Account
+include_once '../models/model-user.php';
+
+if (isset($_POST['submit'])) {
+    if ($_POST['submit'] == "Submit")
+        $result = createAccount($_POST);
+    if ($result['success']) {
+        // Jika akun berhasil dibuat, redirect ke halaman create-account.php dengan parameter success.
+        header("Location:../view/create-account.php?success=" . $result['message']);
+        exit();
+    } else {
+        // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
+        $errorData = implode("<br>", $result['errors']);
+        header("Location:../view/create-account.php?error=" . $errorData);
+        exit();
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,17 +50,6 @@
     </style>
 </head>
 
-<?php
-$info = "";
-if (!empty($_GET['sukses'])) {
-    $info = "<div class='info-insert-data'>Insert Data Gagal</div><br>";
-
-    if ($_GET['sukses'] == "true") {
-        $info = "<div class='info-insert-data'>Create Account Succses ✓</div><br>";
-    }
-}
-?>
-
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
@@ -51,13 +60,15 @@ if (!empty($_GET['sukses'])) {
             <div class="card-body login-card-body">
                 <h5 class="login-box-msg">Register</h5>
 
-                <?php echo $info ?>
+                <?php if (isset($_GET['success'])) { ?>
+                    <p class="error" style="background: #b1dfca; color: green; padding: 8px; width: 100%; border-radius: 5px; font-size: 15px;"><?php echo $_GET['success']; ?></p>
+                <?php } ?>
+
                 <?php if (isset($_GET['error'])) { ?>
                     <p class="error" style="background: #f2dede; color: #A94442; padding: 8px; width: 100%; border-radius: 5px; font-size: 13px;"><?php echo $_GET['error']; ?></p>
                 <?php } ?>
 
-
-                <form action="../function/fn-create-acoount.php" method="post" id="quickForm" enctype="multipart/form-data">
+                <form action="" method="post" id="quickForm">
                     <div class="card-bodsy">
                         <div class="form-group">
                             <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -70,14 +81,9 @@ if (!empty($_GET['sukses'])) {
                         </div>
 
 
-                        <?php if (isset($_GET['salah'])) { ?>
-                            <p class="error" style="background: #f2dede; color: #A94442; padding: 8px; width: 100%; border-radius: 5px; font-size: 13px;"><?php echo $_GET['salah']; ?></p>
-                        <?php } ?>
-
-
                     </div>
                     <!-- /.card-body -->
-                    <input type="submit" style="background-color: #03a9f4; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px;" name="login" value="Submit">
+                    <input type="submit" style="background-color: #03a9f4; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px;" name="submit" value="Submit">
                     <a href="../index.php">
                         <label class="btn btn-secondary mt-1 ml3" style="background-color: #03a9f4; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Login</label>
                     </a>

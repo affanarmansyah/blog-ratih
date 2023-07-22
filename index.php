@@ -1,4 +1,21 @@
 <?php
+// include_once './models/model-user.php';
+
+// if (isset($_POST['submit'])) {
+//   if ($_POST['submit'] == "Masuk") {
+//     $result = Login($_POST);
+//     if ($result['succsess']) {
+//       header("Location:./view/dashboard.php");
+//       exit();
+//     } else {
+//       // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
+//       $errorData = implode("<br>", $result['errors']);
+//       header("Location: index.php?error=" . $errorData);
+//       exit();
+//     }
+//   }
+// }
+
 
 session_start();
 // $_SESSION['username'] = $username;
@@ -44,7 +61,7 @@ if (isset($_SESSION['logged_in'])) {
             <p class="error" style="background: #f2dede; color: #A94442; padding: 8px; width: 100%; border-radius: 5px; font-size: 13px;"><?php echo $_GET['error']; ?></p>
           <?php } ?>
 
-          <form action="./function/fn-proses-login.php" method="post" id="quickForsm">
+          <form action="./function/fn-proses-login.php" method="post" id="quickForm">
             <div class="card-bodsy">
               <div class="form-group">
                 <input type="text" name="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
@@ -57,7 +74,7 @@ if (isset($_SESSION['logged_in'])) {
             <div class="row">
               <!-- /.col -->
               <div class="col-4">
-                <button type="submit" class="btn btn-primary btn-block">Masuk</button>
+                <button type="submit" name="submit" class="btn btn-primary btn-block">Masuk</button>
               </div>
               <a href="./view/create-account.php" class="text-center mt-1">Register member baru</a>
             </div>

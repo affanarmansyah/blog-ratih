@@ -4,10 +4,10 @@ include_once '../models/model-news.php';
 
 // proses addNews
 if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == "add") {
-        $berhasil = create_news($_POST, $_FILES);
+    if ($_POST['submit'] == "save") {
+        $berhasil = createCategory($_POST);
         if ($berhasil) {
-            header("Location:../view/view-news.php");
+            header("Location:../view/view-category.php?berhasil=<b>Well done!</b> Category created");
             exit();
         } else {
             echo $berhasil;
@@ -15,7 +15,6 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -105,7 +104,7 @@ if (isset($_POST['submit'])) {
     <section class="content-header">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Create News</h1>
+                <h1>Create Category</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -116,22 +115,10 @@ if (isset($_POST['submit'])) {
         </div>
     </section>
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required>
-
-        <label for="image">Image URL:</label>
-        <input type="file" name="image">
-
-        <label for="description">Description:</label>
-        <input type="text" name="description" required></input>
-
-        <label for="status">Status:</label>
-        <select id="status" name="status" required>
-            <option value="Active">Active</option>
-            <option value="Non Active">Non Active</option>
-        </select>
-        <input type="submit" name="submit" value="add">
+    <form action="" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required></input>
+        <input type="submit" name="submit" value="save">
     </form>
     <!-- jQuery -->
     <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

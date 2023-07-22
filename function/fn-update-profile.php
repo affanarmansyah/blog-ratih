@@ -37,8 +37,8 @@ if (!empty($errors)) {
         header("location: ../view/edit-profile.php?error=" . $errorData);
     }
 } else {
-    // Lakukan proses upload foto jika ada file yang diunggah
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == UPLOAD_ERR_OK) {
+
         $photo = $_FILES['photo'];
         $photo_name = $photo['name'];
         $photo_tmp_name = $photo['tmp_name'];
@@ -50,18 +50,23 @@ if (!empty($errors)) {
 
         // Pindahkan foto ke folder upload
         move_uploaded_file($photo_tmp_name, $photo_path);
+    } else {
+        // ini foto lama 
+        $query = "SELECT * FROM table_users WHERE id='$id'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $photo_name = $row['photo'];
     }
-    if (!empty($password)) {
+    // ini password lama 
+    if (empty($password)) {
+        $query = "SELECT * FROM table_users WHERE id='$id'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $password = $row['password'];
+    } else {
         $password = md5($password);
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', password='$password' WHERE id='$id'");
-    } else {
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email' WHERE id='$id'");
     }
-    if (!empty($photo_name)) {
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', photo='$photo_name' WHERE id='$id'");
-    } else {
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email' WHERE id='$id'");
-    }
+    $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email',password='$password', photo='$photo_name' WHERE id='$id'");
     if ($update) {
         echo "<script> alert ('Data Berhasil DiUbah')</script>";
         header("refresh:0;../view/edit-profile.php");

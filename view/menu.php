@@ -51,8 +51,16 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
+                <li class="nav-item ml-1">
+                    <a href="dashboard.php" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <p style="margin-left: 10px;">
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <a href="view-news.php" class="nav-link">
+                    <a href="news/list-news.php" class="nav-link">
                         <i class="nav-icon fas fa-blog"></i>
                         <p>
                             News
@@ -60,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="view-category.php" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Category News
