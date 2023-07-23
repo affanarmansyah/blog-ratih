@@ -1,13 +1,15 @@
 <?php
 // Create Account
-include_once '../models/model-user.php';
+include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+
+include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
 
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "Submit")
         $result = createAccount($_POST);
     if ($result['success']) {
         // Jika akun berhasil dibuat, redirect ke halaman create-account.php dengan parameter success.
-        header("Location:../view/create-account.php?success=" . $result['message']);
+        header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/create-account.php?success=" . $result['message']);
         exit();
     } else {
         // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
@@ -29,11 +31,11 @@ if (isset($_POST['submit'])) {
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
     <style>
         .create-accounts a {
             text-decoration: none;
@@ -84,7 +86,7 @@ if (isset($_POST['submit'])) {
                     </div>
                     <!-- /.card-body -->
                     <input type="submit" style="background-color: #03a9f4; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px;" name="submit" value="Submit">
-                    <a href="../index.php">
+                    <a href="<?= BASE_URL_BLOG_RATIH ?>/index.php">
                         <label class="btn btn-secondary mt-1 ml3" style="background-color: #03a9f4; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Login</label>
                     </a>
                     <!-- /.col -->
@@ -97,16 +99,16 @@ if (isset($_POST['submit'])) {
     <!-- /.login-box -->
 
     <!-- jQuery -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <!-- jquery-validation -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
         $(function() {

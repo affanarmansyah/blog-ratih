@@ -1,5 +1,8 @@
 <?php
-include_once 'menu.php';
+include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+
+include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 ?>
 
 <!DOCTYPE html>
@@ -13,9 +16,9 @@ include_once 'menu.php';
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -49,16 +52,16 @@ include_once 'menu.php';
                         <div class="col-md-3">
 
                             <!-- Profile Image -->
-                            <form action="./fn-upload.php" method="post" enctype="multipart/form-data">
+                            <form action="" method="post" enctype="multipart/form-data">
                                 <div class="card card-primary card-outline">
                                     <div class="card-body box-profile">
 
                                         <div class="text-center">
                                             <?php
                                             if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
-                                                $profileImage = "../assets/img/default-profile.png";
+                                                $profileImage = "" . BASE_URL_BLOG_RATIH . "/assets/img/default-profile.png";
                                                 if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {
-                                                    $profileImage = "../assets/img/" . $_SESSION['photo'];
+                                                    $profileImage = "" . BASE_URL_BLOG_RATIH . "/assets/img/" . $_SESSION['photo'];
                                                 }
                                                 echo '<img src="' . $profileImage . '" class="profile-user-img img-fluid img-circle" alt="User Image">';
                                             }
@@ -79,7 +82,7 @@ include_once 'menu.php';
                                         <a href="edit-profile.php">
                                             <label class="btn btn-primary float-right mt-1" style="font-weight: 500;">Edit</label>
                                         </a>
-                                        <a href="detail-page.php">
+                                        <a href="<?= BASE_URL_BLOG_RATIH ?>/view/user/detail-profile.php">
                                             <label class="btn btn-secondary mt-1" style="font-weight: 500;">Detail Profile</label>
                                         </a>
                                     </div>
@@ -105,15 +108,15 @@ include_once 'menu.php';
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
         $(function() {

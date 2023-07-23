@@ -1,5 +1,8 @@
 <?php
-include_once 'menu.php';
+include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+
+include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 
 if (!isset($_SESSION['logged_in'])) {
   header("refresh:0;../../index.php");
@@ -19,9 +22,9 @@ if (!isset($_SESSION['logged_in'])) {
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
   </head>
 
   <body class="hold-transition sidebar-mini">
@@ -55,7 +58,7 @@ if (!isset($_SESSION['logged_in'])) {
               <!-- left column -->
               <div class="col-md-4">
                 <div class="card card-primary">
-                  <form action="../function/fn-update-profile.php" method="post" id="quickForm" enctype="multipart/form-data">
+                  <form action="<?= BASE_URL_BLOG_RATIH ?>/function/fn-update-profile.php" method="POST" id="quickForm" enctype="multipart/form-data">
                     <div class="card-body">
                       <div class="text-center">
                         <?php echo '<img src="' . $profileImage . '" class="profile-user-img img-fluid img-circle" style=" width: 70px;">'; ?>
@@ -89,7 +92,7 @@ if (!isset($_SESSION['logged_in'])) {
                           </div>
                         </div>
                         <input type="submit" style="background-color: #03a9f4; padding: 5px; margin-top: 20px; width: 110px; border: none; color: #fff; border-radius: 5px;" name="submit" value="Save" class="float-right">
-                        <a href="view-profile.php">
+                        <a href="<?= BASE_URL_BLOG_RATIH ?>/view/user/view-profile.php">
                           <label class="btn btn-secondary " style=" margin-top: 20px; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Back</label>
                         </a>
                       </div>
@@ -113,16 +116,16 @@ if (!isset($_SESSION['logged_in'])) {
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <!-- jquery-validation -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
 
     <!-- Page specific script -->
     <script>

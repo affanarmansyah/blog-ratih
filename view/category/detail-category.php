@@ -1,8 +1,11 @@
 <?php
-include_once 'menu.php';
-include_once '../models/model-news.php';
+include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+
+include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
+
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$result = detailUpdateNews($id);
+$result = detailUpdateCategory($id);
 
 ?>
 
@@ -17,9 +20,9 @@ $result = detailUpdateNews($id);
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -33,7 +36,7 @@ $result = detailUpdateNews($id);
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Detail News </h1>
+                            <h1>Detail Category </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -57,29 +60,8 @@ $result = detailUpdateNews($id);
                                     <td><?php echo $result['id']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Image</th>
-                                    <td><?php echo $result['image'] ? $result['image'] : 'default-news.png'; ?></td>
-
-                                </tr>
-                                <tr>
-                                    <th>Description</th>
-                                    <td><?php echo $result['description']; ?></td>
-
-                                </tr>
-                                <tr>
-                                    <th>Status</th>
-                                    <td><?php echo $result['status']; ?></td>
-
-                                </tr>
-                                <tr>
-                                    <th>Created_at</th>
-                                    <td><?php echo $result['created_at']; ?></td>
-
-                                </tr>
-                                <tr>
-                                    <th>Update_at</th>
-                                    <td><?php echo $result['updated_at']; ?></td>
-
+                                    <th>NAME</th>
+                                    <td><?php echo $result['name']; ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -87,7 +69,7 @@ $result = detailUpdateNews($id);
                     <!-- /.card-body -->
                 </div><!-- /.container-fluid -->
             </section>
-            <a href="view-news.php">
+            <a href="<?= BASE_URL_BLOG_RATIH ?>/view/category/list-category.php">
                 <label class="btn btn-secondary " style="margin-left: 10px; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Back</label>
             </a>
             <!-- <a href="edit_news.php">
@@ -105,15 +87,15 @@ $result = detailUpdateNews($id);
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
         $(function() {

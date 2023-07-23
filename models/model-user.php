@@ -4,7 +4,8 @@
 
 function createAccount($data)
 {
-    include_once '../function/fn-databese-connect.php';
+    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
+
 
     $errors = array();
 

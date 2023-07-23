@@ -113,9 +113,9 @@ if (!isset($_SESSION['logged_in'])) {
                                             <td><?php echo $row['created_at']; ?></td>
                                             <td><?php echo $row['updated_at']; ?></td>
                                             <td>
-                                                <a style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/edit-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-edit" title="Edit"></i></a>
-                                                <a style="background-color: salmon; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/view-news.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus berita ini?')"><i class="fas fa-trash-alt" title="Delete"></i></a>
-                                                <a style="background-color: cornflowerblue; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/detail-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-eye" title="View"></i></a>
+                                                <a style="background-color: #03a9f4; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/news/edit-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-edit" title="Edit"></i></a>
+                                                <a style="background-color: salmon; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/news/list-news.php?id=<?php echo $row['id']; ?>" onclick="return confirm('Anda yakin ingin menghapus berita ini?')"><i class="fas fa-trash-alt" title="Delete"></i></a>
+                                                <a style="background-color: cornflowerblue; padding: 5px;  border: none; color: #fff; " href="<?= BASE_URL_BLOG_RATIH ?>/view/news/detail-news.php?id=<?php echo $row['id']; ?>"><i class="fas fa-eye" title="View"></i></a>
                                             </td>
                                         </tr>
                                     <?php

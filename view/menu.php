@@ -9,7 +9,7 @@
     <div class="sidebar">
         <!-- Sidebar user (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <a href="./view-profile.php" class="image">
+            <a href="<?= BASE_URL_BLOG_RATIH ?>/view/user/view-profile.php" class="image">
                 <?php
                 session_start();
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
@@ -25,9 +25,9 @@
                 <?php
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                     if (empty($_SESSION['name'])) {
-                        echo '<a href="' . BASE_URL_BLOG_RATIH . '/view/view-profile.php" class="d-block">' . $_SESSION['email'] . '</a>';
+                        echo '<a href="' . BASE_URL_BLOG_RATIH . '/view/user/view-profile.php" class="d-block">' . $_SESSION['email'] . '</a>';
                     } else {
-                        echo '<a href="' . BASE_URL_BLOG_RATIH . '/view/view-profile.php" class="d-block">' . $_SESSION['name'] . '</a>';
+                        echo '<a href="' . BASE_URL_BLOG_RATIH . '/view/user/view-profile.php" class="d-block">' . $_SESSION['name'] . '</a>';
                     }
                 }
                 ?>
@@ -52,7 +52,7 @@
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
                 <li class="nav-item ml-1">
-                    <a href="dashboard.php" class="nav-link">
+                    <a href="<?= BASE_URL_BLOG_RATIH ?>/view/dashboard.php" class="nav-link">
                         <i class="fas fa-chart-bar"></i>
                         <p style="margin-left: 10px;">
                             Dashboard
@@ -68,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="view-category.php" class="nav-link">
+                    <a href="<?= BASE_URL_BLOG_RATIH ?>/view/category/list-category.php" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Category News
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href=" ../function/fn-logout.php" class="nav-link">
+                    <a href=" <?= BASE_URL_BLOG_RATIH ?>/function/fn-logout.php" class="nav-link">
                         <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
                         <p>
                             LogOut

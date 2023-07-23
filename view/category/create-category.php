@@ -1,14 +1,15 @@
 <?php
+include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
 
-include_once 'menu.php';
-include_once '../models/model-news.php';
+include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
-// proses updateNews
+// proses addNews
 if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == "update") {
-        $berhasil = updateNews($_POST, $_FILES);
+    if ($_POST['submit'] == "save") {
+        $berhasil = createCategory($_POST);
         if ($berhasil) {
-            header("Location:../view/view-news.php?berhasil=<b>Well done!</b> News updated");
+            header("Location:" . BASE_URL_BLOG_RATIH . "/view/category/list-category.php?berhasil=<b>Well done!</b> Category created");
             exit();
         } else {
             echo $berhasil;
@@ -16,9 +17,6 @@ if (isset($_POST['submit'])) {
         }
     }
 }
-
-$result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -31,9 +29,9 @@ $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
     <style>
         body {
             background-color: #f2f2f2;
@@ -108,7 +106,7 @@ $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
     <section class="content-header">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Update News</h1>
+                <h1>Create Category</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -119,34 +117,19 @@ $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
         </div>
     </section>
 
-    <form action="" method="POST" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="<?php echo $result['title']; ?>" required>
-
-        <label for="image">Image URL:</label>
-        <img src="../assets/img/<?php echo $result['image']; ?>" style="width: 50px; height: 50px;">
-        <br>
-        <input type="file" name="image" style="margin-top: 10px;">
-
-        <label for="description">Description:</label>
-        <input type="text" name="description" value="<?php echo $result['description']; ?>" required></input>
-
-        <label for="status">Status:</label>
-        <select id="status" name="status" value="<?php echo $result['status']; ?>" required>
-            <option value="Active">Active</option>
-            <option value="Non Active">Non Active</option>
-        </select>
-        <input type="submit" name="submit" value="update">
+    <form action="" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" name="name" required></input>
+        <input type="submit" name="submit" value="save">
     </form>
     <!-- jQuery -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="../assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
 </body>
 
 </html>
