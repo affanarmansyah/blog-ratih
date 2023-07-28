@@ -4,7 +4,7 @@ include_once "./fn-databese-connect.php";
 session_start();
 $errors = array();
 
-$id = $_SESSION['id'];
+$id = $_SESSION['id']; // test affan
 $name = $_POST['name'];
 $email = $_POST['email'];
 $password = $_POST['password'];
@@ -37,8 +37,8 @@ if (!empty($errors)) {
         header("location: ../view/edit-profile.php?error=" . $errorData);
     }
 } else {
-    // Lakukan proses upload foto jika ada file yang diunggah
     if (isset($_FILES['photo']) && $_FILES['photo']['error'] == UPLOAD_ERR_OK) {
+
         $photo = $_FILES['photo'];
         $photo_name = $photo['name'];
         $photo_tmp_name = $photo['tmp_name'];
@@ -50,14 +50,23 @@ if (!empty($errors)) {
 
         // Pindahkan foto ke folder upload
         move_uploaded_file($photo_tmp_name, $photo_path);
-    }
-    if (!empty($password)) {
-        $password = md5($password);
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email', password='$password', photo='$photo_name' WHERE id='$id'");
     } else {
-        $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email',photo='$photo_name' WHERE id='$id'");
+        // ini foto lama 
+        $query = "SELECT * FROM table_users WHERE id='$id'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $photo_name = $row['photo'];
     }
-
+    // ini password lama 
+    if (empty($password)) {
+        $query = "SELECT * FROM table_users WHERE id='$id'";
+        $result = mysqli_query($conn, $query);
+        $row = mysqli_fetch_assoc($result);
+        $password = $row['password'];
+    } else {
+        $password = md5($password);
+    }
+    $update = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email',password='$password', photo='$photo_name' WHERE id='$id'");
     if ($update) {
         echo "<script> alert ('Data Berhasil DiUbah')</script>";
         header("refresh:0;../view/edit-profile.php");

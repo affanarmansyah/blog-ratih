@@ -1,5 +1,9 @@
 <?php
 include_once 'menu.php';
+include_once '../models/model-news.php';
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$result = detailUpdateNews($id);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +33,7 @@ include_once 'menu.php';
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Detail Profil </h1>
+                            <h1>Detail News </h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
@@ -50,27 +54,32 @@ include_once 'menu.php';
                             <tbody>
                                 <tr>
                                     <th>ID</th>
-                                    <td><?php echo $_SESSION['id']; ?></td>
+                                    <td><?php echo $result['id']; ?></td>
                                 </tr>
                                 <tr>
-                                    <th>Email</th>
-                                    <td><?php echo $_SESSION['email']; ?></td>
+                                    <th>Image</th>
+                                    <td><?php echo $result['image'] ? $result['image'] : 'default-news.png'; ?></td>
+
                                 </tr>
                                 <tr>
-                                    <th>Name</th>
-                                    <td><?php echo $_SESSION['name'] ? $_SESSION['name'] : "Tidak Ada Nama"; ?></td>
+                                    <th>Description</th>
+                                    <td><?php echo $result['description']; ?></td>
+
                                 </tr>
                                 <tr>
-                                    <th>Photo</th>
-                                    <td><?php echo $_SESSION['photo'] ? $_SESSION['photo'] : "default-profile.png"; ?></td>
+                                    <th>Status</th>
+                                    <td><?php echo $result['status']; ?></td>
+
                                 </tr>
                                 <tr>
                                     <th>Created_at</th>
-                                    <td><?php echo $_SESSION['created_at']; ?></td>
+                                    <td><?php echo $result['created_at']; ?></td>
+
                                 </tr>
                                 <tr>
                                     <th>Update_at</th>
-                                    <td><?php echo $_SESSION['updated_at']; ?></td>
+                                    <td><?php echo $result['updated_at']; ?></td>
+
                                 </tr>
                             </tbody>
                         </table>
@@ -78,12 +87,12 @@ include_once 'menu.php';
                     <!-- /.card-body -->
                 </div><!-- /.container-fluid -->
             </section>
-            <a href="view-profile.php">
+            <a href="view-news.php">
                 <label class="btn btn-secondary " style="margin-left: 10px; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Back</label>
             </a>
-            <a href="edit-profile.php">
+            <!-- <a href="edit_news.php">
                 <label class="btn btn-primary " style="padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Edit</label>
-            </a>
+            </a> -->
             <!-- /.content -->
         </div>
         <!-- /.content-wrapper -->

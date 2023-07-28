@@ -1,7 +1,7 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="height: 146vh;">
     <!-- Brand Logo -->
-    <a href="../assets/plugin/AdminLTE-3.2.0/index3.html" class="brand-link">
-        <img src="../assets/plugin/AdminLTE-3.2.0/dist/img/ratih.webp" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+    <a href="#" class="brand-link">
+        <img src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/img/ratih.webp" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Ratih Blog</span>
     </a>
 
@@ -13,9 +13,9 @@
                 <?php
                 session_start();
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
-                    $profileImage = "../assets/img/default-profile.jpg";
+                    $profileImage = BASE_URL_BLOG_RATIH . "/assets/img/default-profile.png";
                     if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {
-                        $profileImage = "../assets/img/" . $_SESSION['photo'];
+                        $profileImage = BASE_URL_BLOG_RATIH . "/assets/img/" . $_SESSION['photo'];
                     }
                     echo '<img src="' . $profileImage . '" class="img-circle elevation-2" alt="User Image">';
                 }
@@ -25,9 +25,9 @@
                 <?php
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                     if (empty($_SESSION['name'])) {
-                        echo '<a href="./view-profile.php" class="d-block">' . $_SESSION['email'] . '</a>';
+                        echo '<a href="' . BASE_URL_BLOG_RATIH . '/view/view-profile.php" class="d-block">' . $_SESSION['email'] . '</a>';
                     } else {
-                        echo '<a href="./view-profile.php" class="d-block">' . $_SESSION['name'] . '</a>';
+                        echo '<a href="' . BASE_URL_BLOG_RATIH . '/view/view-profile.php" class="d-block">' . $_SESSION['name'] . '</a>';
                     }
                 }
                 ?>
@@ -51,8 +51,16 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
        with font-awesome or any other icon font library -->
+                <li class="nav-item ml-1">
+                    <a href="dashboard.php" class="nav-link">
+                        <i class="fas fa-chart-bar"></i>
+                        <p style="margin-left: 10px;">
+                            Dashboard
+                        </p>
+                    </a>
+                </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="<?= BASE_URL_BLOG_RATIH ?>/view/news/list-news.php" class="nav-link">
                         <i class="nav-icon fas fa-blog"></i>
                         <p>
                             News
@@ -60,7 +68,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="../widgets.html" class="nav-link">
+                    <a href="view-category.php" class="nav-link">
                         <i class="nav-icon fas fa-book"></i>
                         <p>
                             Category News

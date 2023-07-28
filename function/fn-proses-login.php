@@ -4,15 +4,9 @@ session_start();
 include_once "./fn-databese-connect.php";
 
 if (isset($_POST['email']) && isset($_POST['password'])) {
-    function validate($data)
-    {
-        $data = trim($data);
-        $data = stripslashes($data);
-        $data = htmlspecialchars($data);
-        return $data;
-    }
-    $email = validate($_POST['email']);
-    $password = validate(md5($_POST['password']));
+
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
     // echo '<pre>';
     // print_r($_POST);
     // echo '</pre>';
