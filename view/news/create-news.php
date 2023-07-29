@@ -3,6 +3,7 @@ include_once __DIR__ . '/../../function/base.php'; // first to call have use __D
 
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
 // proses addNews
 if (isset($_POST['submit'])) {
@@ -17,6 +18,8 @@ if (isset($_POST['submit'])) {
         }
     }
 }
+
+$categories = listCategory(1, "", 1000);
 
 ?>
 <!DOCTYPE html>
@@ -132,6 +135,16 @@ if (isset($_POST['submit'])) {
         <select id="status" name="status" required>
             <option value="Active">Active</option>
             <option value="Non Active">Non Active</option>
+        </select>
+
+        <label for="status">Category:</label>
+        <select id="category" name="category" required>
+            <?php
+            foreach ($categories['row'] as $category) {
+            ?>
+                <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+
+            <?php } ?>
         </select>
         <input type="submit" name="submit" value="add">
     </form>

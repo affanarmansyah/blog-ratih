@@ -41,6 +41,7 @@ function createNews($data, $files)
     $image = $files['image'];
     $description = $data['description'];
     $status = $data['status'];
+    $category_id = $data['category'];
 
     if (isset($image) && $image['error'] == UPLOAD_ERR_OK) {
         $image_name = $image['name'];
@@ -51,7 +52,7 @@ function createNews($data, $files)
 
         move_uploaded_file($image_tmp_name, $image_path);
     }
-    $query = "INSERT INTO table_news (title,image,description,status) VALUES ('$title','$image_name','$description','$status')";
+    $query = "INSERT INTO table_news (title,image,description,status,category_id) VALUES ('$title','$image_name','$description','$status','$category_id')";
     $result = mysqli_query($conn, $query);
     mysqli_close($conn);
 
