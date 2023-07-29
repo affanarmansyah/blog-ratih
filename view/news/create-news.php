@@ -111,8 +111,8 @@ if (isset($_POST['submit'])) {
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">General Form</li>
+                    <li class="breadcrumb-item"><a href="<?= BASE_URL_BLOG_RATIH ?>/view/dashboard.php">Home</a></li>
+                    <li class="breadcrumb-item active">Create News</li>
                 </ol>
             </div>
         </div>

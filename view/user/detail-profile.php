@@ -2,7 +2,10 @@
 include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
 
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
-include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
+
+$id = isset($_GET['id']) ? $_GET['id'] : '';
+$result = detailProfile($id);
 ?>
 
 <!DOCTYPE html>
@@ -36,8 +39,8 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">General Form</li>
+                                <li class="breadcrumb-item"><a href="<?= BASE_URL_BLOG_RATIH ?>/view/dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item active">Detail Profile</li>
                             </ol>
                         </div>
                     </div>
@@ -53,27 +56,27 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
                             <tbody>
                                 <tr>
                                     <th>ID</th>
-                                    <td><?php echo $_SESSION['id']; ?></td>
+                                    <td><?php echo $result['id']; ?></td>
                                 </tr>
                                 <tr>
                                     <th>Email</th>
-                                    <td><?php echo $_SESSION['email']; ?></td>
+                                    <td><?php echo $result['email']; ?></td>
                                 </tr>
                                 <tr>
                                     <th>Name</th>
-                                    <td><?php echo $_SESSION['name'] ? $_SESSION['name'] : "Tidak Ada Nama"; ?></td>
+                                    <td><?php echo $result['name'] ? $result['name'] : "Tidak Ada Nama"; ?></td>
                                 </tr>
                                 <tr>
                                     <th>Photo</th>
-                                    <td><?php echo $_SESSION['photo'] ? $_SESSION['photo'] : "default-profile.png"; ?></td>
+                                    <td><?php echo $result['photo'] ? $result['photo'] : "default-profile.png"; ?></td>
                                 </tr>
                                 <tr>
                                     <th>Created_at</th>
-                                    <td><?php echo $_SESSION['created_at']; ?></td>
+                                    <td><?php echo $result['created_at']; ?></td>
                                 </tr>
                                 <tr>
                                     <th>Update_at</th>
-                                    <td><?php echo $_SESSION['updated_at']; ?></td>
+                                    <td><?php echo $result['updated_at']; ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -106,8 +109,7 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
     <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
+
     <!-- Page specific script -->
     <script>
         $(function() {

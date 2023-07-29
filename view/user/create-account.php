@@ -14,7 +14,7 @@ if (isset($_POST['submit'])) {
     } else {
         // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
         $errorData = implode("<br>", $result['errors']);
-        header("Location:../view/create-account.php?error=" . $errorData);
+        header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/create-account.php?error=" . $errorData);
         exit();
     }
 }
@@ -107,8 +107,7 @@ if (isset($_POST['submit'])) {
     <!-- jquery-validation -->
     <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
     <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/demo.js"></script>
+
     <!-- Page specific script -->
     <script>
         $(function() {

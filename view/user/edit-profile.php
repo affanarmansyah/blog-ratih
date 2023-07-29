@@ -2,15 +2,29 @@
 include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
 
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
-include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
 
 if (!isset($_SESSION['logged_in'])) {
   header("refresh:0;../../index.php");
 } else {
 
+  if (isset($_POST['submit'])) {
+    if ($_POST['submit'] == "Save")
+      $result = updateProfile($_POST, $_FILES);
+    if ($result['success']) {
+      $_SESSION['name'] = $_POST['name'];
+      $_SESSION['email'] = $_POST['email'];
+      header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?success=" . $result['message']);
+      exit();
+    } else {
+      // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
+      $errorData = implode("<br>", $result['errors']);
+      header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?error=" . $errorData);
+      exit();
+    }
+  }
 
 ?>
-
   <!DOCTYPE html>
   <html lang="en">
 
@@ -58,17 +72,21 @@ if (!isset($_SESSION['logged_in'])) {
               <!-- left column -->
               <div class="col-md-4">
                 <div class="card card-primary">
-                  <form action="<?= BASE_URL_BLOG_RATIH ?>/function/fn-update-profile.php" method="POST" id="quickForm" enctype="multipart/form-data">
+                  <form action="" method="post" id="quickForm" enctype="multipart/form-data">
                     <div class="card-body">
-                      <div class="text-center">
+                      <div class="text-center mb-3">
                         <?php echo '<img src="' . $profileImage . '" class="profile-user-img img-fluid img-circle" style=" width: 70px;">'; ?>
                       </div>
                       <div>
+                        <?php if (isset($_GET['success'])) { ?>
+                          <p class="error" style="background: #b1dfca; color: green; padding: 8px; width: 100%; border-radius: 5px; font-size: 15px;"><?php echo $_GET['success']; ?></p>
+                        <?php } ?>
                         <?php if (isset($_GET['error'])) { ?>
                           <p class="error" style="background: #f2dede; color: #A94442; padding: 8px; width: 100%; border-radius: 5px; font-size: 13px; margin-top: 10px;"><?php echo $_GET['error']; ?></p>
                         <?php } ?>
                       </div>
                       <div class="form-group">
+                        <input type="hidden" name="id" value="<?php echo $_SESSION['id']; ?>">
                         <label for="exampleName1">Name</label>
                         <input type="text" value="<?php echo $_SESSION['name']; ?>" name="name" class="form-control" id="exampleName1" placeholder="Name">
                       </div>
@@ -92,7 +110,7 @@ if (!isset($_SESSION['logged_in'])) {
                           </div>
                         </div>
                         <input type="submit" style="background-color: #03a9f4; padding: 5px; margin-top: 20px; width: 110px; border: none; color: #fff; border-radius: 5px;" name="submit" value="Save" class="float-right">
-                        <a href="<?= BASE_URL_BLOG_RATIH ?>/view/user/view-profile.php">
+                        <a href="view-profile.php">
                           <label class="btn btn-secondary " style=" margin-top: 20px; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Back</label>
                         </a>
                       </div>

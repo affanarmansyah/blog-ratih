@@ -108,12 +108,12 @@ $result = detailUpdateCategory(isset($_GET['id']) ? $_GET['id'] : '')
     <section class="content-header">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Update News</h1>
+                <h1>Update Category</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">General Form</li>
+                    <li class="breadcrumb-item"><a href="<?= BASE_URL_BLOG_RATIH ?>/view/dashboard.php">Home</a></li>
+                    <li class="breadcrumb-item active">Update Category</li>
                 </ol>
             </div>
         </div>
@@ -122,7 +122,7 @@ $result = detailUpdateCategory(isset($_GET['id']) ? $_GET['id'] : '')
     <form action="" method="POST" enctype="multipart/form-data">
         <input type="hidden" name="id" value="<?php echo $result['id']; ?>">
 
-        <label for="name">name:</label>
+        <label for="name">Name:</label>
         <input type="text" id="name" name="name" value="<?php echo $result['name']; ?>" required>
 
         <input type="submit" name="submit" value="update">

@@ -8,7 +8,7 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 
 // proses updateNews
 if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == "update") {
+    if ($_POST['submit'] == "Update") {
         $berhasil = updateNews($_POST, $_FILES);
         if ($berhasil) {
             header("Location: " . BASE_URL_BLOG_RATIH . " /view/news/list-news.php?berhasil=<b>Well done!</b> News updated");
@@ -115,8 +115,8 @@ $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">General Form</li>
+                    <li class="breadcrumb-item"><a href="<?= BASE_URL_BLOG_RATIH ?>/view/dashboard.php">Home</a></li>
+                    <li class="breadcrumb-item active">Update News</li>
                 </ol>
             </div>
         </div>
@@ -140,7 +140,7 @@ $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
             <option value="Active">Active</option>
             <option value="Non Active">Non Active</option>
         </select>
-        <input type="submit" name="submit" value="update">
+        <input type="submit" name="submit" value="Update" style="font-size: medium;">
     </form>
     <!-- jQuery -->
     <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>

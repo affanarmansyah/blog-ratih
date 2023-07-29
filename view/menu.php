@@ -13,9 +13,9 @@
                 <?php
                 session_start();
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
-                    $profileImage = BASE_URL_BLOG_RATIH . "/assets/img/default-profile.png";
+                    $profileImage = "" . BASE_URL_BLOG_RATIH . "/assets/img/default-profile.png";
                     if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {
-                        $profileImage = BASE_URL_BLOG_RATIH . "/assets/img/" . $_SESSION['photo'];
+                        $profileImage = "" . BASE_URL_BLOG_RATIH . "/assets/img/" . $_SESSION['photo'];
                     }
                     echo '<img src="' . $profileImage . '" class="img-circle elevation-2" alt="User Image">';
                 }
@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href=" <?= BASE_URL_BLOG_RATIH ?>/function/fn-logout.php" class="nav-link">
+                    <a href=" <?= BASE_URL_BLOG_RATIH ?>/function/fn-logout.php" class="nav-link" onclick="return confirm('Anda yakin ingin Logout?')">
                         <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
                         <p>
                             LogOut
