@@ -1,11 +1,8 @@
 <?php
 
 // function create account
-function createAccount($data)
+function createAccount($data, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
-
     $errors = array();
 
     $email = $data['email'];
@@ -128,12 +125,8 @@ function createAccount($data)
 
 
 // function updateProfile
-function updateProfile($data, $files)
+function updateProfile($data, $files, $conn)
 {
-
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
-
     $errors = array();
 
     $id = $data['id']; // test affan

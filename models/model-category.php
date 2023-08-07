@@ -1,11 +1,8 @@
 <?php
 
 // function view category
-function listCategory($page, $cari, $limit = 10)
+function listCategory($page, $cari, $limit = 10, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
-
     $offset = ($page - 1) * $limit; // Offset data
     $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_category")) / $limit);
 
@@ -33,11 +30,8 @@ function listCategory($page, $cari, $limit = 10)
 
 
 // function create-category.php
-function createCategory($data)
+function createCategory($data, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
-
     $name = $data['name'];
 
     $query = "INSERT INTO table_category (name) VALUES ('$name')";
@@ -48,10 +42,8 @@ function createCategory($data)
 }
 
 // function Update Category
-function updateCategory($data)
+function updateCategory($data, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
     $id = $data['id'];
     $name = $data['name'];
 
@@ -63,11 +55,8 @@ function updateCategory($data)
 }
 
 // function detail category
-function detailUpdateCategory($id)
+function detailUpdateCategory($id, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
-
     $query = "SELECT * FROM table_category WHERE id = '$id';";
     $sql = mysqli_query($conn, $query);
 
@@ -76,11 +65,8 @@ function detailUpdateCategory($id)
 }
 
 // function Delete category
-function deleteCategory($id)
+function deleteCategory($id, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
-
     mysqli_query($conn, "DELETE from table_category WHERE id='$id'");
     return true;
 }

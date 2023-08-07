@@ -9,7 +9,7 @@ $cari = isset($_GET['cari_disini']) ? $_GET['cari_disini'] : '';
 $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
 
 if (isset($_GET['id'])) {
-    $berhasil = deleteNews($_GET['id']);
+    $berhasil = deleteNews($_GET['id'], $conn);
     if ($berhasil) {
         header("Location:" . BASE_URL_BLOG_RATIH . "/view/news/list-news.php?berhasil=<b>Well done!</b> News deleted");
         exit();
@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
         exit();
     }
 }
-$result = listNews($page, $cari, $limit);
+$result = listNews($page, $cari, $limit, $conn);
 
 
 if (!isset($_SESSION['logged_in'])) {

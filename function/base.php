@@ -10,3 +10,5 @@ $baseDir = $dir[0] . '\\' . $dir[1] . '\\' . $dir[2] . '\\' . $dir[3];
 // fungsi untuk membuat constat global
 define("BASE_URL_BLOG_RATIH", $baseUrl);
 define("BASE_DIR_BLOG_RATIH", $baseDir);
+
+include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';

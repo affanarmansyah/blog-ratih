@@ -75,6 +75,11 @@ $result = detailUpdateNews($id);
 
                                 </tr>
                                 <tr>
+                                    <th>Category</th>
+                                    <td><?php echo ucwords($result['category']); ?></td>
+
+                                </tr>
+                                <tr>
                                     <th>Created_at</th>
                                     <td><?php echo $result['created_at']; ?></td>
 
