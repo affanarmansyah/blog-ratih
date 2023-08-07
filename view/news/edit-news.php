@@ -4,6 +4,7 @@ include_once __DIR__ . '/../../function/base.php'; // first to call have use __D
 
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
+include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
 
 // proses updateNews
@@ -20,7 +21,8 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
+// $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '');
+$categories = listCategory(1, "", 1000);
 
 ?>
 <!DOCTYPE html>
@@ -143,6 +145,14 @@ $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
             <option value="Non Active" <?php if ($result['status'] == 'Non Active') {
                                             echo "selected";
                                         } ?> value="Non Active">Non Active</option>
+        </select>
+        <select id="category" name="category" required>
+            <?php
+            foreach ($categories['row'] as $category) {
+            ?>
+                <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+
+            <?php } ?>
         </select>
         <input type="submit" name="submit" value="Update" style="font-size: medium;">
     </form>
