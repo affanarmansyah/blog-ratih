@@ -136,9 +136,13 @@ $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '')
         <input type="text" name="description" value="<?php echo $result['description']; ?>" required></input>
 
         <label for="status">Status:</label>
-        <select id="status" name="status" value="<?php echo $result['status']; ?>" required>
-            <option value="Active">Active</option>
-            <option value="Non Active">Non Active</option>
+        <select id="status" name="status" required>
+            <option value="Active" <?php if ($result['status'] == 'Active') {
+                                        echo "selected";
+                                    } ?> value="Active">Active</option>
+            <option value="Non Active" <?php if ($result['status'] == 'Non Active') {
+                                            echo "selected";
+                                        } ?> value="Non Active">Non Active</option>
         </select>
         <input type="submit" name="submit" value="Update" style="font-size: medium;">
     </form>

@@ -69,6 +69,7 @@ function updateNews($data, $files)
     $image = $files['image'];
     $description = $data['description'];
     $status = $data['status'];
+    $updated_at = $data['updated_at'];
 
     if (isset($image) && $image['error'] == UPLOAD_ERR_OK) {
         $image_name = $image['name'];
@@ -89,7 +90,7 @@ function updateNews($data, $files)
         $image_name = $row['image'];
     }
 
-    $query = "UPDATE table_news SET title='$title', image='$image_name', description='$description', status='$status' WHERE id='$id'";
+    $query = "UPDATE table_news SET title='$title', image='$image_name', description='$description', status='$status',updated_at=NOW() WHERE id='$id'";
     $result = mysqli_query($conn, $query);
     mysqli_close($conn);
 

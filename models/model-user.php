@@ -141,6 +141,8 @@ function updateProfile($data, $files)
     $email = $data['email'];
     $password = $data['password'];
     $confirmPassword = $data['confirm_password'];
+    $updated_at = $data['updated_at'];
+
 
     if (empty($name)) {
         $errors[] = "Nama Tidak Boleh Kosong";
@@ -197,7 +199,7 @@ function updateProfile($data, $files)
         } else {
             $password = md5($password);
         }
-        $query = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email',password='$password', photo='$photo_name' WHERE id='$id'");
+        $query = mysqli_query($conn, "UPDATE table_users SET name='$name', email='$email',password='$password', photo='$photo_name',updated_at=NOW() WHERE id='$id'");
         mysqli_close($conn);
 
         return [
