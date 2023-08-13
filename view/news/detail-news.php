@@ -5,7 +5,7 @@ include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$result = detailUpdateNews($id);
+$result = detailUpdateNews($id, $conn);
 
 ?>
 
@@ -72,6 +72,11 @@ $result = detailUpdateNews($id);
                                 <tr>
                                     <th>Status</th>
                                     <td><?php echo $result['status']; ?></td>
+
+                                </tr>
+                                <tr>
+                                    <th>Category</th>
+                                    <td><?php echo ucwords($result['category']); ?></td>
 
                                 </tr>
                                 <tr>

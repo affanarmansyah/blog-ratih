@@ -3,9 +3,8 @@
 // function view-news.php
 
 // fungsi ini reternnya adalah row dari database dan totalnya
-function listNews($page, $cari, $limit = 10)
+function listNews($page, $cari, $limit = 10, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
 
     $offset = ($page - 1) * $limit; // Offset data
     $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_news")) / $limit);
@@ -33,9 +32,8 @@ function listNews($page, $cari, $limit = 10)
 }
 
 // function create-news.php
-function createNews($data, $files)
+function createNews($data, $files, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
 
     $title = $data['title'];
     $image = $files['image'];
@@ -60,9 +58,8 @@ function createNews($data, $files)
 }
 
 // function Update news
-function updateNews($data, $files)
+function updateNews($data, $files, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
 
     $id = $data['id'];
     $title = $data['title'];
@@ -70,6 +67,7 @@ function updateNews($data, $files)
     $description = $data['description'];
     $status = $data['status'];
     $updated_at = $data['updated_at'];
+    $category_id = $data['category_id'];
 
     if (isset($image) && $image['error'] == UPLOAD_ERR_OK) {
         $image_name = $image['name'];
@@ -90,7 +88,7 @@ function updateNews($data, $files)
         $image_name = $row['image'];
     }
 
-    $query = "UPDATE table_news SET title='$title', image='$image_name', description='$description', status='$status',updated_at=NOW() WHERE id='$id'";
+    $query = "UPDATE table_news SET title='$title', image='$image_name', description='$description', status='$status',updated_at=NOW(),category_id='$category_id' WHERE id='$id'";
     $result = mysqli_query($conn, $query);
     mysqli_close($conn);
 
@@ -98,12 +96,14 @@ function updateNews($data, $files)
 }
 
 // function detail news
-function detailUpdateNews($id)
+function detailUpdateNews($id, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
 
-
-    $query = "SELECT * FROM table_news WHERE id = '$id';";
+    $query = "SELECT 
+        table_news.*, table_category.name as category FROM table_news 
+    join 
+        table_category on table_news.category_id = table_category.id 
+    WHERE table_news.id = '$id';";
     $sql = mysqli_query($conn, $query);
 
     $result = mysqli_fetch_assoc($sql);
@@ -111,11 +111,8 @@ function detailUpdateNews($id)
 }
 
 // function Delete news
-function deleteNews($id)
+function deleteNews($id, $conn)
 {
-    include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
-
-
     mysqli_query($conn, "DELETE from table_news WHERE id='$id'");
     return true;
 }

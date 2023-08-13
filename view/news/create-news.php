@@ -8,7 +8,7 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 // proses addNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "add") {
-        $berhasil = createNews($_POST, $_FILES);
+        $berhasil = createNews($_POST, $_FILES, $conn);
         if ($berhasil) {
             header("Location:" . BASE_URL_BLOG_RATIH . "/view/news/list-news.php?berhasil=<b>Well done!</b> News created");
             exit();
@@ -19,7 +19,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$categories = listCategory(1, "", 1000);
+$categories = listCategory(1, "", 1000, $conn);
 
 ?>
 <!DOCTYPE html>

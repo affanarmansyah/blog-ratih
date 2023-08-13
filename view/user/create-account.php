@@ -6,7 +6,7 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
 
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "Submit")
-        $result = createAccount($_POST);
+        $result = createAccount($_POST, $conn);
     if ($result['success']) {
         // Jika akun berhasil dibuat, redirect ke halaman create-account.php dengan parameter success.
         header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/create-account.php?success=" . $result['message']);

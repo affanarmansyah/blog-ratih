@@ -7,7 +7,7 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 // proses addNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "save") {
-        $berhasil = createCategory($_POST);
+        $berhasil = createCategory($_POST, $conn);
         if ($berhasil) {
             header("Location:" . BASE_URL_BLOG_RATIH . "/view/category/list-category.php?berhasil=<b>Well done!</b> Category created");
             exit();

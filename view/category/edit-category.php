@@ -6,7 +6,7 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 // proses updateNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "update") {
-        $berhasil = updateCategory($_POST);
+        $berhasil = updateCategory($_POST, $conn);
         if ($berhasil) {
             header("Location:" . BASE_URL_BLOG_RATIH . "/view/category/list-category.php?berhasil=<b>Well done!</b> category updated");
             exit();
@@ -17,7 +17,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$result = detailUpdateCategory(isset($_GET['id']) ? $_GET['id'] : '')
+$result = detailUpdateCategory(isset($_GET['id']) ? $_GET['id'] : '', $conn)
 
 ?>
 <!DOCTYPE html>

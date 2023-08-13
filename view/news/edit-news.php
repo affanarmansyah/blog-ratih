@@ -6,11 +6,10 @@ include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
-
 // proses updateNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "Update") {
-        $berhasil = updateNews($_POST, $_FILES);
+        $berhasil = updateNews($_POST, $_FILES, $conn);
         if ($berhasil) {
             header("Location: " . BASE_URL_BLOG_RATIH . " /view/news/list-news.php?berhasil=<b>Well done!</b> News updated");
             exit();
@@ -21,8 +20,8 @@ if (isset($_POST['submit'])) {
     }
 }
 
-// $result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '');
-$categories = listCategory(1, "", 1000);
+$result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '', $conn);
+$categories = listCategory(1, "", 1000, $conn);
 
 ?>
 <!DOCTYPE html>
@@ -146,12 +145,14 @@ $categories = listCategory(1, "", 1000);
                                             echo "selected";
                                         } ?> value="Non Active">Non Active</option>
         </select>
-        <select id="category" name="category" required>
+        <label for="status">Category:</label>
+        <select id="category" name="category_id" required>
             <?php
             foreach ($categories['row'] as $category) {
-            ?>
-                <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
+                $selected = $category['id'] == $result['category_id'] ? 'selected' : "";
+                echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['name'] . '</option>';
 
+            ?>
             <?php } ?>
         </select>
         <input type="submit" name="submit" value="Update" style="font-size: medium;">

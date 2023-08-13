@@ -9,7 +9,7 @@ $cari = isset($_GET['cari_disini']) ? $_GET['cari_disini'] : '';
 $limit = isset($_GET['limit']) ? $_GET['limit'] : 5;
 
 if (isset($_GET['id'])) {
-    $berhasil = deleteCategory($_GET['id']);
+    $berhasil = deleteCategory($_GET['id'], $conn);
     if ($berhasil) {
         header("Location:" . BASE_URL_BLOG_RATIH . "/view/category/list-category.php?berhasil=<b>Well done!</b> category deleted");
         exit();
@@ -18,7 +18,7 @@ if (isset($_GET['id'])) {
         exit();
     }
 }
-$result = listCategory($page, $cari, $limit);
+$result = listCategory($page, $cari, $limit, $conn);
 
 
 if (!isset($_SESSION['logged_in'])) {
