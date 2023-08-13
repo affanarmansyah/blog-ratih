@@ -1,0 +1,1 @@
+1. buat array yang berisi angka 1 - 10 dengan metode for
