@@ -20,7 +20,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '', $conn);
+$result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '', $conn); // 
 $categories = listCategory(1, "", 1000, $conn);
 
 ?>
@@ -138,22 +138,23 @@ $categories = listCategory(1, "", 1000, $conn);
 
         <label for="status">Status:</label>
         <select id="status" name="status" required>
-            <option value="Active" <?php if ($result['status'] == 'Active') {
-                                        echo "selected";
-                                    } ?> value="Active">Active</option>
-            <option value="Non Active" <?php if ($result['status'] == 'Non Active') {
-                                            echo "selected";
-                                        } ?> value="Non Active">Non Active</option>
+            <?php
+            $active = $result['status'] == 'Active' ? 'selected' : "";
+            $inactive = $result['status'] == 'Non Active' ? 'selected' : "";
+            ?>
+            <option value="Active" <?= $active ?> value="Active">Active</option>
+            <option value="Non Active" <?= $inactive ?> value="Non Active">Non Active</option>
         </select>
         <label for="status">Category:</label>
         <select id="category" name="category_id" required>
             <?php
+
             foreach ($categories['row'] as $category) {
                 $selected = $category['id'] == $result['category_id'] ? 'selected' : "";
                 echo '<option value="' . $category['id'] . '" ' . $selected . '>' . $category['name'] . '</option>';
+            }
 
             ?>
-            <?php } ?>
         </select>
         <input type="submit" name="submit" value="Update" style="font-size: medium;">
     </form>
