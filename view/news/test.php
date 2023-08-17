@@ -16,7 +16,7 @@ contoh: [1, genap, 3, genap, 5, genap]
 
 <?php
 
-function Genap($angkagenap)
+function Genap(int $angkagenap)
 {
     if ($angkagenap % 2 == 0) {
         return "genap";

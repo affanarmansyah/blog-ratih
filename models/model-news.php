@@ -3,15 +3,15 @@
 class NewsModel
 {
     private $mysqlConnection;
-    private $newsRows;
-    private $newsTotalPages;
+    private array $newsRows;
+    private int $newsTotalPages;
 
     public function __construct($conn)
     {
         $this->mysqlConnection = $conn;
     }
 
-    private function setNewsRows($row)
+    private function setNewsRows(array $row)
     {
         $this->newsRows = $row;
     }
@@ -21,7 +21,7 @@ class NewsModel
         return $this->newsRows;
     }
 
-    private function setNewsTotalPages($totalPages)
+    private function setNewsTotalPages(int $totalPages)
     {
         $this->newsTotalPages = $totalPages;
     }
@@ -31,7 +31,7 @@ class NewsModel
         return $this->newsTotalPages;
     }
 
-    public function listNews($page, $cari, $limit = 10)
+    public function listNews(int $page, string $cari, int $limit = 10)
     {
         $offset = ($page - 1) * $limit; // Offset data
         $total_pages = ceil(mysqli_num_rows(mysqli_query($this->mysqlConnection, "SELECT * FROM table_news")) / $limit);
@@ -50,7 +50,7 @@ class NewsModel
         $this->setNewsTotalPages($total_pages);
     }
 
-    function detailUpdateNews($id)
+    function detailUpdateNews(int $id)
     {
         $id = isset($id) ? $id : '';
 
