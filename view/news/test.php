@@ -21,14 +21,16 @@ function Genap($angkagenap)
     if ($angkagenap % 2 == 0) {
         return "genap";
     }
-    return true;
+    return $angkagenap;
 }
 
 
 $angka = [];
 
-for ($i = 0; $i <= 10; $i++) {
+for ($i = 1; $i <= 10; $i++) {
     $angka[] = Genap($i);
 }
+echo '<pre>';
 print_r($angka);
+echo '</pre>';
 ?>
