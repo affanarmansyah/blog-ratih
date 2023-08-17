@@ -6,10 +6,12 @@ include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
+$newsModel = new NewsModel($conn);
+
 // proses updateNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "Update") {
-        $berhasil = updateNews($_POST, $_FILES, $conn);
+        $berhasil = $newsModel->updateNews($_POST, $_FILES);
         if ($berhasil) {
             header("Location: " . BASE_URL_BLOG_RATIH . " /view/news/list-news.php?berhasil=<b>Well done!</b> News updated");
             exit();
@@ -20,7 +22,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$result = detailUpdateNews(isset($_GET['id']) ? $_GET['id'] : '', $conn); // 
+$result = $newsModel->detailUpdateNews($_GET['id']);
 $categories = listCategory(1, "", 1000, $conn);
 
 ?>

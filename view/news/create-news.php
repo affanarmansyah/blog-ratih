@@ -5,10 +5,12 @@ include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
+$newsModel = new NewsModel($conn);
+
 // proses addNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "add") {
-        $berhasil = createNews($_POST, $_FILES, $conn);
+        $berhasil = $newsModel->createNews($_POST, $_FILES);
         if ($berhasil) {
             header("Location:" . BASE_URL_BLOG_RATIH . "/view/news/list-news.php?berhasil=<b>Well done!</b> News created");
             exit();

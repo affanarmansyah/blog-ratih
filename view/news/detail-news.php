@@ -5,7 +5,8 @@ include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$result = detailUpdateNews($id, $conn);
+$newsModel = new NewsModel($conn);
+$result = $newsModel->detailUpdateNews($id);
 
 ?>
 

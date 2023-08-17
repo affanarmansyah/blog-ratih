@@ -8,8 +8,11 @@ $page = isset($_GET['page']) ? $_GET['page'] : 1;
 $cari = isset($_GET['cari_disini']) ? $_GET['cari_disini'] : '';
 $limit = isset($_GET['limit']) ? $_GET['limit'] : 10;
 
+$newsModel = new NewsModel($conn);
+$newsModel->listNews($page, $cari, $limit);
+
 if (isset($_GET['id'])) {
-    $berhasil = deleteNews($_GET['id'], $conn);
+    $berhasil = $newsModel->deleteNews($_GET['id']);
     if ($berhasil) {
         header("Location:" . BASE_URL_BLOG_RATIH . "/view/news/list-news.php?berhasil=<b>Well done!</b> News deleted");
         exit();
@@ -18,8 +21,6 @@ if (isset($_GET['id'])) {
         exit();
     }
 }
-$result = listNews($page, $cari, $limit, $conn);
-
 
 if (!isset($_SESSION['logged_in'])) {
     header("refresh:0;../index.php");
@@ -99,11 +100,11 @@ if (!isset($_SESSION['logged_in'])) {
                                 </thead>
                                 <tbody>
                                     <?php
-                                    echo $result['total_pages'] == 0 ? '<tr><td colspan="7">Tidak ada data ditemukan</td></tr>' : '';
+                                    echo $newsModel->getNewsTotalPages() == 0 ? '<tr><td colspan="7">Tidak ada data ditemukan</td></tr>' : '';
 
                                     $no = ($page - 1) * $limit + 1;
 
-                                    foreach ($result['row'] as $row) {
+                                    foreach ($newsModel->getNewsRows() as $row) {
                                     ?>
                                         <tr>
                                             <td><?php echo $no; ?></td>
@@ -134,7 +135,7 @@ if (!isset($_SESSION['logged_in'])) {
                                     echo '<li class="page-item"><a class="page-link" href="?page=' . ($page - 1) . '&cari_disini=' . $cari . '">&laquo;</a></li>';
                                 }
 
-                                for ($i = 1; $i <= $result['total_pages']; $i++) {
+                                for ($i = 1; $i <= $newsModel->getNewsTotalPages(); $i++) {
                                     echo '<li class="page-item';
                                     if ($i == $page) {
                                         echo ' active';
@@ -142,7 +143,7 @@ if (!isset($_SESSION['logged_in'])) {
                                     echo '"><a class="page-link" href="?page=' . $i . '&cari_disini=' . $cari . '">' . $i . '</a></li>';
                                 }
 
-                                if ($page < $result['total_pages']) {
+                                if ($page < $newsModel->getNewsTotalPages()) {
                                     echo '<li class="page-item"><a class="page-link" href="?page=' . ($page + 1) . '&cari_disini=' . $cari . '">&raquo;</a></li>';
                                 }
                                 ?>
