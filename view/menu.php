@@ -77,7 +77,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href=" <?= BASE_URL_BLOG_RATIH ?>/function/fn-logout.php" class="nav-link" onclick="return confirm('Anda yakin ingin Logout?')">
+                    <a href=" <?= BASE_URL_BLOG_RATIH ?>/view/login/logout.php" class="nav-link" onclick="return confirm('Anda yakin ingin Logout?')">
                         <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
                         <p>
                             LogOut

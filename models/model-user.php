@@ -1,6 +1,6 @@
 <?php
 
-class User
+class UserModel
 {
 
     private $mysqlConnection;
@@ -104,9 +104,6 @@ class User
         }
     }
 
-
-
-
     // function updateProfile
     public function updateProfile($data, $files)
     {
@@ -201,63 +198,16 @@ class User
         $result = mysqli_fetch_assoc($sql);
         return $result;
     }
+
+    // function untuk login
+    public function login($email, $password)
+    {
+        $sql = "Select * FROM table_users where email='$email' AND password='$password'";
+        $result = mysqli_query($this->mysqlConnection, $sql);
+
+        return [
+            'success' => mysqli_num_rows($result),
+            'row' => mysqli_fetch_assoc($result)
+        ];
+    }
 }
-
-
-
-// function Login
-
-// function Login($data)
-// {
-//     session_start();
-
-//     include_once '../function/fn-databese-connect.php';
-
-//     $errors = array();
-
-//     $email = $data['email'];
-//     $password = $data['password'];
-
-//     if (empty($email)) {
-//         $errors[] = "Email Harus Diisi";
-//     }
-
-//     if (empty($password)) {
-//         $errors[] = "Password Harus Diisi";
-//     }
-
-//     if (!empty($errors)) {
-//         return [
-//             'success' => false,
-//             'message' => $errors
-//         ];
-//     } else {
-//         $sql = "Select * FROM table_users where email='$email' AND password='$password'";
-
-//         $result = mysqli_query($conn, $sql);
-
-//         if (mysqli_num_rows($result) === 1) {
-//             $row = mysqli_fetch_assoc($result);
-//             if ($row['email'] === $email && $row['password'] === $password) {
-//                 $_SESSION['email'] = $row['email'];
-//                 $_SESSION['password'] = $row['password'];
-//                 $_SESSION['name'] = $row['name'];
-//                 $_SESSION['photo'] = $row['photo'];
-//                 $_SESSION['created_at'] = $row['created_at'];
-//                 $_SESSION['updated_at'] = $row['updated_at'];
-//                 $_SESSION['id'] = $row['id'];
-//                 $_SESSION['logged_in'] = true;
-//                 if (empty($row['name'])) {
-//                     echo "email: " . $row['email'];
-//                 } else {
-//                     echo "name: " . $row['name'];
-//                 }
-//                 header("location: ../view/dashboard.php");
-//                 exit();
-//             }
-//         } else {
-//             header("location: ../index.php?error=Email atau password anda salah, coba kembali.");
-//             exit();
-//         }
-//     }
-// }

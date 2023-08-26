@@ -4,7 +4,7 @@ include_once __DIR__ . '/../../function/base.php'; // first to call have use __D
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
 
-$update = new User($conn);
+$update = new UserModel($conn);
 
 if (!isset($_SESSION['logged_in'])) {
   header("refresh:0;../../index.php");
