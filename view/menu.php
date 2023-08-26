@@ -12,6 +12,7 @@
             <a href="<?= BASE_URL_BLOG_RATIH ?>/view/user/view-profile.php" class="image">
                 <?php
                 session_start();
+                $userSession = $_SESSION;
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                     $profileImage = "" . BASE_URL_BLOG_RATIH . "/assets/img/default-profile.png";
                     if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {

@@ -20,8 +20,12 @@ if (!isset($_SESSION['logged_in'])) {
     $feedbackErrors = $update->getErrors();
 
     if ($feedback['success']) {
-      $_SESSION['name'] = $_POST['name'];
+      // update session ketika berhasil update
       $_SESSION['email'] = $_POST['email'];
+      $_SESSION['name'] = $_POST['name'];
+      $_SESSION['photo'] = $_POST['photo'];
+      $_SESSION['updated_at'] = $_POST['updated_at'];
+
       header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?success=" . $feedback['message']);
       exit();
     } else {
