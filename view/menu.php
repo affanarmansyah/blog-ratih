@@ -12,7 +12,6 @@
             <a href="<?= BASE_URL_BLOG_RATIH ?>/view/user/view-profile.php" class="image">
                 <?php
                 session_start();
-                $userSession = $_SESSION;
                 if (isset($_SESSION['email']) && isset($_SESSION['name'])) {
                     $profileImage = "" . BASE_URL_BLOG_RATIH . "/assets/img/default-profile.png";
                     if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {
@@ -77,7 +76,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href=" <?= BASE_URL_BLOG_RATIH ?>/view/login/logout.php" class="nav-link" onclick="return confirm('Anda yakin ingin Logout?')">
+                    <a href=" <?= BASE_URL_BLOG_RATIH ?>/function/fn-logout.php" class="nav-link" onclick="return confirm('Anda yakin ingin Logout?')">
                         <i class="nav-icon fas fa-arrow-alt-circle-right"></i>
                         <p>
                             LogOut
