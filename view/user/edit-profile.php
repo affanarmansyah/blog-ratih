@@ -4,21 +4,29 @@ include_once __DIR__ . '/../../function/base.php'; // first to call have use __D
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
 
+$update = new User($conn);
+
 if (!isset($_SESSION['logged_in'])) {
   header("refresh:0;../../index.php");
 } else {
 
   if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == "Save")
-      $result = updateProfile($_POST, $_FILES);
-    if ($result['success']) {
+    if ($_POST['submit'] == "Save") {
+
+      $result = $update->updateProfile($_POST, $_FILES);
+    }
+
+    $feedback = $update->getUser();
+    $feedbackErrors = $update->getErrors();
+
+    if ($feedback['success']) {
       $_SESSION['name'] = $_POST['name'];
       $_SESSION['email'] = $_POST['email'];
-      header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?success=" . $result['message']);
+      header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?success=" . $feedback['message']);
       exit();
     } else {
       // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
-      $errorData = implode("<br>", $result['errors']);
+      $errorData = implode("<br>", $feedbackErrors['errors']);
       header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?error=" . $errorData);
       exit();
     }

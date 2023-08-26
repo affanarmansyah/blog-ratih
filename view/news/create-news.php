@@ -6,7 +6,7 @@ include_once BASE_DIR_BLOG_RATIH . '/models/model-news.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
 $newsModel = new NewsModel($conn);
-
+$categoryModel = new CategoryModel($conn);
 // proses addNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "add") {
@@ -21,7 +21,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$categories = listCategory(1, "", 1000, $conn);
+$categories = $categoryModel->listCategory(1, "", 1000);
 
 ?>
 <!DOCTYPE html>
@@ -142,7 +142,7 @@ $categories = listCategory(1, "", 1000, $conn);
         <label for="status">Category:</label>
         <select id="category" name="category" required>
             <?php
-            foreach ($categories['row'] as $category) {
+            foreach ($categoryModel->getCategoryRows() as $category) {
             ?>
                 <option value="<?php echo $category['id'] ?>"><?php echo $category['name'] ?></option>
 

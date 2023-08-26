@@ -4,8 +4,10 @@ include_once __DIR__ . '/../../function/base.php'; // first to call have use __D
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
+$categoryModel = new CategoryModel($conn);
+
 $id = isset($_GET['id']) ? $_GET['id'] : '';
-$result = detailUpdateCategory($id, $conn);
+$result = $categoryModel->detailUpdateCategory($id);
 
 ?>
 

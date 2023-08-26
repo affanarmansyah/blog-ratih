@@ -1,72 +1,98 @@
 <?php
 
-// function view category
-function listCategory($page, $cari, $limit = 10, $conn)
-{
-    $offset = ($page - 1) * $limit; // Offset data
-    $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_category")) / $limit);
 
-    $query = "SELECT * FROM table_category order by id DESC LIMIT $limit OFFSET $offset";
-    if (isset($cari)) {
-        $cari_disini = $cari;
-        $query = "SELECT * FROM table_category where name LIKE '%" . $cari_disini . "%'  order by id DESC LIMIT $limit OFFSET $offset";
-        $total_pages = ceil(mysqli_num_rows(mysqli_query($conn, "SELECT * FROM table_category where name LIKE '%" . $cari_disini . "%'")) / $limit);
+class CategoryModel
+{
+
+    private $mysqlConnection;
+    private $categoryRows;
+    private $categoryTotalPages;
+
+    public function __construct($conn)
+    {
+        $this->mysqlConnection = $conn;
     }
 
-    $result = mysqli_query($conn, $query);
-    $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+    private function setCategoryRows($row)
+    {
+        $this->categoryRows = $row;
+    }
 
-    // $testArray = ["sdfsd" => 1, 2, 3, 4];
+    public function getCategoryRows()
+    {
+        return $this->categoryRows;
+    }
 
-    // print_r($testArray);
-    // print_r($testArray[0]);
+    private function setCategoryTotalPages($total_pages)
+    {
+        $this->categoryTotalPages = $total_pages;
+    }
 
-    // cara membuat array object
-    return [
-        'row' => $row,
-        'total_pages' => $total_pages
-    ];
-}
+    public function getCategoryTotalPages()
+    {
+        return $this->categoryTotalPages;
+    }
+
+    // function view category
+    public function listCategory($page, $cari, $limit = 10)
+    {
+        $offset = ($page - 1) * $limit; // Offset data
+        $total_pages = ceil(mysqli_num_rows(mysqli_query($this->mysqlConnection, "SELECT * FROM table_category")) / $limit);
+
+        $query = "SELECT * FROM table_category order by id DESC LIMIT $limit OFFSET $offset";
+        if (isset($cari)) {
+            $cari_disini = $cari;
+            $query = "SELECT * FROM table_category where name LIKE '%" . $cari_disini . "%'  order by id DESC LIMIT $limit OFFSET $offset";
+            $total_pages = ceil(mysqli_num_rows(mysqli_query($this->mysqlConnection, "SELECT * FROM table_category where name LIKE '%" . $cari_disini . "%'")) / $limit);
+        }
+
+        $result = mysqli_query($this->mysqlConnection, $query);
+        $row = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+        $this->setCategoryRows($row);
+        $this->setCategoryTotalPages($total_pages);
+    }
 
 
-// function create-category.php
-function createCategory($data, $conn)
-{
-    $name = $data['name'];
+    // function create-category.php
+    public function createCategory($data)
+    {
+        $name = $data['name'];
 
-    $query = "INSERT INTO table_category (name) VALUES ('$name')";
-    $result = mysqli_query($conn, $query);
-    mysqli_close($conn);
+        $query = "INSERT INTO table_category (name) VALUES ('$name')";
+        $result = mysqli_query($this->mysqlConnection, $query);
+        mysqli_close($this->mysqlConnection);
 
-    return true;
-}
+        return true;
+    }
 
-// function Update Category
-function updateCategory($data, $conn)
-{
-    $id = $data['id'];
-    $name = $data['name'];
+    // function Update Category
+    public function updateCategory($data)
+    {
+        $id = $data['id'];
+        $name = $data['name'];
 
-    $query = "UPDATE table_category SET name='$name' WHERE id='$id'";
-    $result = mysqli_query($conn, $query);
-    mysqli_close($conn);
+        $query = "UPDATE table_category SET name='$name' WHERE id='$id'";
+        $result = mysqli_query($this->mysqlConnection, $query);
+        mysqli_close($this->mysqlConnection);
 
-    return true;
-}
+        return true;
+    }
 
-// function detail category
-function detailUpdateCategory($id, $conn)
-{
-    $query = "SELECT * FROM table_category WHERE id = '$id';";
-    $sql = mysqli_query($conn, $query);
+    // function detail category
+    public function detailUpdateCategory($id)
+    {
+        $query = "SELECT * FROM table_category WHERE id = '$id';";
+        $sql = mysqli_query($this->mysqlConnection, $query);
 
-    $result = mysqli_fetch_assoc($sql);
-    return $result;
-}
+        $result = mysqli_fetch_assoc($sql);
+        return $result;
+    }
 
-// function Delete category
-function deleteCategory($id, $conn)
-{
-    mysqli_query($conn, "DELETE from table_category WHERE id='$id'");
-    return true;
+    // function Delete category
+    public function deleteCategory($id)
+    {
+        mysqli_query($this->mysqlConnection, "DELETE from table_category WHERE id='$id'");
+        return true;
+    }
 }

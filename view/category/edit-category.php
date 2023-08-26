@@ -4,9 +4,12 @@ include_once __DIR__ . '/../../function/base.php'; // first to call have use __D
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 // proses updateNews
+
+$categoryModel = new CategoryModel($conn);
+
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "update") {
-        $berhasil = updateCategory($_POST, $conn);
+        $berhasil = $categoryModel->updateCategory($_POST);
         if ($berhasil) {
             header("Location:" . BASE_URL_BLOG_RATIH . "/view/category/list-category.php?berhasil=<b>Well done!</b> category updated");
             exit();
@@ -17,7 +20,7 @@ if (isset($_POST['submit'])) {
     }
 }
 
-$result = detailUpdateCategory(isset($_GET['id']) ? $_GET['id'] : '', $conn)
+$result = $categoryModel->detailUpdateCategory(isset($_GET['id']) ? $_GET['id'] : '')
 
 ?>
 <!DOCTYPE html>

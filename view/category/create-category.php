@@ -4,10 +4,11 @@ include_once __DIR__ . '/../../function/base.php'; // first to call have use __D
 include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
 include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
 
+$categoryModel = new CategoryModel($conn);
 // proses addNews
 if (isset($_POST['submit'])) {
     if ($_POST['submit'] == "save") {
-        $berhasil = createCategory($_POST, $conn);
+        $berhasil = $categoryModel->createCategory($_POST);
         if ($berhasil) {
             header("Location:" . BASE_URL_BLOG_RATIH . "/view/category/list-category.php?berhasil=<b>Well done!</b> Category created");
             exit();

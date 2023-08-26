@@ -50,7 +50,7 @@ class NewsModel
         $this->setNewsTotalPages($total_pages);
     }
 
-    function detailUpdateNews(int $id)
+    public function detailUpdateNews(int $id)
     {
         $id = isset($id) ? $id : '';
 
@@ -65,7 +65,7 @@ class NewsModel
         return $result;
     }
 
-    function updateNews($data, $files)
+    public function updateNews($data, $files)
     {
         $id = $data['id'];
         $title = $data['title'];
@@ -101,7 +101,7 @@ class NewsModel
     }
 
     // function create-news.php
-    function createNews($data, $files)
+    public function createNews($data, $files)
     {
 
         $title = $data['title'];
@@ -127,7 +127,7 @@ class NewsModel
     }
 
     // function Delete news
-    function deleteNews($id)
+    public function deleteNews($id)
     {
         mysqli_query($this->mysqlConnection, "DELETE from table_news WHERE id='$id'");
         return true;
