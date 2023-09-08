@@ -1,40 +1,13 @@
 <?php
-include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+include_once  '../../controllers/LoginController.php';
 
-include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
-include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
-
-$update = new UserModel($conn);
+$user = new LoginController;
+$pageUpdate = $user->pageUpdateProfile($_POST, $_FILES);
+$baseUrl = $user->baseUrl;
 
 if (!isset($_SESSION['logged_in'])) {
   header("refresh:0;../../index.php");
 } else {
-
-  if (isset($_POST['submit'])) {
-    if ($_POST['submit'] == "Save") {
-
-      $result = $update->updateProfile($_POST, $_FILES);
-    }
-
-    $feedback = $update->getUser();
-    $feedbackErrors = $update->getErrors();
-
-    if ($feedback['success']) {
-      // update session ketika berhasil update
-      $_SESSION['email'] = $_POST['email'];
-      $_SESSION['name'] = $_POST['name'];
-      $_SESSION['photo'] = $_POST['photo'];
-      $_SESSION['updated_at'] = $_POST['updated_at'];
-
-      header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?success=" . $feedback['message']);
-      exit();
-    } else {
-      // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
-      $errorData = implode("<br>", $feedbackErrors['errors']);
-      header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/edit-profile.php?error=" . $errorData);
-      exit();
-    }
-  }
 
 ?>
   <!DOCTYPE html>
@@ -48,12 +21,14 @@ if (!isset($_SESSION['logged_in'])) {
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
   </head>
 
   <body class="hold-transition sidebar-mini">
+    <?= $user->menu() ?>
+
     <div class="wrapper">
       <!-- Main Sidebar Container -->
 
@@ -87,7 +62,13 @@ if (!isset($_SESSION['logged_in'])) {
                   <form action="" method="post" id="quickForm" enctype="multipart/form-data">
                     <div class="card-body">
                       <div class="text-center mb-3">
-                        <?php echo '<img src="' . $profileImage . '" class="profile-user-img img-fluid img-circle" style=" width: 70px;">'; ?>
+                        <?php
+                        $profileImage = "" . $baseUrl . "/assets/img/default-profile.png";
+                        if (isset($_SESSION['photo']) && !empty($_SESSION['photo'])) {
+                          $profileImage = "" . $baseUrl . "/assets/img/" . $_SESSION['photo'];
+                        }
+                        echo '<img src="' . $profileImage . '" class="profile-user-img img-fluid img-circle" alt="User Image">';
+                        ?>
                       </div>
                       <div>
                         <?php if (isset($_GET['success'])) { ?>
@@ -146,16 +127,16 @@ if (!isset($_SESSION['logged_in'])) {
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <!-- jquery-validation -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
 
     <!-- Page specific script -->
     <script>

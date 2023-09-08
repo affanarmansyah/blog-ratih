@@ -54,14 +54,13 @@ class NewsModel
     {
         $id = isset($id) ? $id : '';
 
-        $query = "SELECT 
-        table_news.*, table_category.name as category FROM table_news 
-    join 
-        table_category on table_news.category_id = table_category.id 
-    WHERE table_news.id = '$id';";
+        $query = "SELECT table_news.*, table_category.name as category FROM table_news 
+                  join table_category on table_news.category_id = table_category.id WHERE table_news.id = '$id';";
+
         $sql = mysqli_query($this->mysqlConnection, $query);
 
         $result = mysqli_fetch_assoc($sql);
+
         return $result;
     }
 
@@ -97,7 +96,7 @@ class NewsModel
         $result = mysqli_query($this->mysqlConnection, $query);
         mysqli_close($this->mysqlConnection);
 
-        return true;
+        return $result;
     }
 
     // function create-news.php
@@ -114,7 +113,7 @@ class NewsModel
             $image_name = $image['name'];
             $image_tmp_name = $image['tmp_name'];
             // $image_extension = pathinfo($image_name, PATHINFO_EXTENSION);
-            $upload_directory = BASE_DIR_BLOG_RATIH . "/assets/img/";
+            $upload_directory = "/assets/img/";
             $image_path = $upload_directory . $image_name;
 
             move_uploaded_file($image_tmp_name, $image_path);

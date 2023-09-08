@@ -1,32 +1,10 @@
 <?php
-// Create Account
-include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+include_once  '../../controllers/LoginController.php';
 
-include_once BASE_DIR_BLOG_RATIH . '/models/model-user.php';
+$user = new LoginController;
+$pagecreate = $user->pageCreateAccount($_POST);
+$baseUrl = $user->baseUrl;
 
-$register = new User($conn);
-
-
-if (isset($_POST['create-user'])) {
-    if ($_POST['create-user'] == "Create") {
-
-        $result = $register->createAccount($_POST);
-    }
-
-    $feedback = $register->getUser();
-    $feedbackErrors = $register->getErrors();
-
-    if ($feedback['success']) {
-        // Jika akun berhasil dibuat, redirect ke halaman create-account.php dengan parameter success.
-        header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/create-account.php?success=" . $feedback['message']);
-        exit();
-    } else {
-        // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
-        $errorData = implode("<br>", $feedbackErrors['errors']);
-        header("Location:" . BASE_URL_BLOG_RATIH . "/view/user/create-account.php?error=" . $errorData);
-        exit();
-    }
-}
 ?>
 
 <!DOCTYPE html>
@@ -40,11 +18,11 @@ if (isset($_POST['create-user'])) {
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
     <style>
         .create-accounts a {
             text-decoration: none;
@@ -95,7 +73,7 @@ if (isset($_POST['create-user'])) {
                     </div>
                     <!-- /.card-body -->
                     <input type="submit" style="background-color: #03a9f4; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px;" name="create-user" value="Create">
-                    <a href="<?= BASE_URL_BLOG_RATIH ?>/index.php">
+                    <a href="<?= $baseUrl ?>/index.php">
                         <label class="btn btn-secondary mt-1 ml3" style="background-color: #03a9f4; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Login</label>
                     </a>
                     <!-- /.col -->
@@ -108,14 +86,14 @@ if (isset($_POST['create-user'])) {
     <!-- /.login-box -->
 
     <!-- jQuery -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
     <!-- jquery-validation -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery-validation/additional-methods.min.js"></script>
 
     <!-- Page specific script -->
     <script>
@@ -125,7 +103,7 @@ if (isset($_POST['create-user'])) {
                     header("refresh:0;./dashboard.php");
                 }
             });
-            $('#quickForwm').validate({
+            $('#quickForm').validate({
                 rules: {
                     email: {
                         required: true,

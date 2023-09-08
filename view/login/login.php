@@ -57,7 +57,7 @@ if (isset($_POST['login'])) {
                         <div class="col-4">
                             <button type="submit" name="login" value="true" class="btn btn-primary btn-block">Masuk</button>
                         </div>
-                        <a href="./view/user/create-account.php" class="text-center mt-1">Register member baru</a>
+                        <a href="../user/create-account.php" class="text-center mt-1">Register member baru</a>
                     </div>
                     <!-- /.col -->
             </div>

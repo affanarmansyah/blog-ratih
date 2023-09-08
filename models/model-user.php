@@ -4,7 +4,7 @@ class UserModel
 {
 
     private $mysqlConnection;
-    private $succsessResult;
+    public $succsessResult;
     private $errors;
 
     public function __construct($conn)
@@ -12,7 +12,7 @@ class UserModel
         $this->mysqlConnection = $conn;
     }
 
-    private function setUser($result)
+    public function setUser($result)
     {
         $this->succsessResult = $result;
     }
@@ -22,7 +22,7 @@ class UserModel
         return $this->succsessResult;
     }
 
-    private function setErrors($errors)
+    public function setErrors($errors)
     {
         $this->errors = $errors;
     }
@@ -114,8 +114,6 @@ class UserModel
         $email = $data['email'];
         $password = $data['password'];
         $confirmPassword = $data['confirm_password'];
-        $updated_at = $data['updated_at'];
-
 
         if (empty($name)) {
             $errors[] = "Nama Tidak Boleh Kosong";
@@ -149,12 +147,8 @@ class UserModel
                 $photo_name = $photo['name'];
                 $photo_tmp_name = $photo['tmp_name'];
                 $photo_extension = pathinfo($photo_name, PATHINFO_EXTENSION);
-
-                // Tentukan lokasi folder untuk menyimpan foto
                 $upload_directory = "../assets/img/";
-                $photo_path = $upload_directory . $photo_name; // ../assets/img/email.png
-
-                // Pindahkan foto ke folder upload
+                $photo_path = $upload_directory . $photo_name;
                 move_uploaded_file($photo_tmp_name, $photo_path);
             } else {
                 // ini foto lama 
@@ -178,7 +172,8 @@ class UserModel
             $this->setUser(
                 [
                     'success' => true,
-                    'message' => "Updated Profile Sucssess"
+                    'message' => "Updated Profile Sucssess",
+                    'photo' => $photo_name
                 ]
             );
             return;
@@ -189,7 +184,6 @@ class UserModel
     // function detail Profile
     public function detailProfile($id)
     {
-        include_once BASE_DIR_BLOG_RATIH . '/function/fn-databese-connect.php';
 
 
         $query = "SELECT * FROM table_users WHERE id = '$id';";

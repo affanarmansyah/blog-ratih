@@ -1,13 +1,11 @@
 <?php
-include_once __DIR__ . '/../../function/base.php'; // first to call have use __DIR__
+include_once  '../../controllers/CategoryController.php';
 
-include_once BASE_DIR_BLOG_RATIH . '/view/menu.php';
-include_once BASE_DIR_BLOG_RATIH . '/models/model-category.php';
+$category = new CategoryController;
+$detailcategory = $category->pageDetailCategory($_GET);
+$baseUrl = $category->baseUrl;
 
-$categoryModel = new CategoryModel($conn);
 
-$id = isset($_GET['id']) ? $_GET['id'] : '';
-$result = $categoryModel->detailUpdateCategory($id);
 
 ?>
 
@@ -22,12 +20,14 @@ $result = $categoryModel->detailUpdateCategory($id);
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
+    <?= $category->menu() ?>
+
     <div class="wrapper">
         <!-- Main Sidebar Container -->
 
@@ -42,7 +42,7 @@ $result = $categoryModel->detailUpdateCategory($id);
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="<?= BASE_URL_BLOG_RATIH ?>/view/dashboard.php">Home</a></li>
+                                <li class="breadcrumb-item"><a href="<?= $baseUrl ?>/view/dashboard.php">Home</a></li>
                                 <li class="breadcrumb-item active">Detail Category</li>
                             </ol>
                         </div>
@@ -59,11 +59,11 @@ $result = $categoryModel->detailUpdateCategory($id);
                             <tbody>
                                 <tr>
                                     <th>ID</th>
-                                    <td><?php echo $result['id']; ?></td>
+                                    <td><?php echo $detailcategory['id']; ?></td>
                                 </tr>
                                 <tr>
                                     <th>NAME</th>
-                                    <td><?php echo $result['name']; ?></td>
+                                    <td><?php echo $detailcategory['name']; ?></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -71,7 +71,7 @@ $result = $categoryModel->detailUpdateCategory($id);
                     <!-- /.card-body -->
                 </div><!-- /.container-fluid -->
             </section>
-            <a href="<?= BASE_URL_BLOG_RATIH ?>/view/category/list-category.php">
+            <a href="<?= $baseUrl ?>/view/category/list-category.php">
                 <label class="btn btn-secondary " style="margin-left: 10px; padding: 5px; width: 110px; border: none; color: #fff; border-radius: 5px; font-weight: 500;">Back</label>
             </a>
             <!-- <a href="edit_news.php">
@@ -89,13 +89,13 @@ $result = $categoryModel->detailUpdateCategory($id);
     <!-- ./wrapper -->
 
     <!-- jQuery -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- bs-custom-file-input -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="<?= BASE_URL_BLOG_RATIH ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
+    <script src="<?= $baseUrl ?>/assets/plugin/AdminLTE-3.2.0/dist/js/adminlte.min.js"></script>
 
     <!-- Page specific script -->
     <script>

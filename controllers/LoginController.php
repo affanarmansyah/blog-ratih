@@ -64,4 +64,75 @@ class LoginController extends ConfigComponent
 
         header("Location: ../../index.php");
     }
+
+    public function pageUpdateProfile($params, $files)
+    {
+
+        $update = new UserModel($this->connection);
+
+
+        if (isset($params['submit'])) {
+            if ($params['submit'] == "Save") {
+                // untuk update
+                $update->updateProfile($params, $files);
+            }
+
+            $feedback = $update->getUser();
+            $feedbackErrors = $update->getErrors();
+
+            if ($feedback['success']) {
+                // update session ketika berhasil update
+                $_SESSION['email'] = $params['email'] ? $params['email'] : $_SESSION['email'];
+                $_SESSION['name'] = $params['name'] ? $params['name'] : $_SESSION['name'];
+                $_SESSION['photo'] = $files['photo'] ? $files['photo']['name'] : $_SESSION['photo'];
+                $_SESSION['updated_at'] = $params['updated_at'] ? $params['updated_at'] : $_SESSION['updated_at'];
+
+                header("Location:" . $this->baseUrl . "/view/user/edit-profile.php?success=" . $feedback['message']);
+                exit();
+            } else {
+                // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
+                $errorData = implode("<br>", $feedbackErrors['errors']);
+                header("Location:" . $this->baseUrl . "/view/user/edit-profile.php?error=" . $errorData);
+                exit();
+            }
+        }
+    }
+
+    public function pageDetailProfile($params)
+    {
+        $detail = new UserModel($this->connection);
+
+        $id = isset($params['id']) ? $params['id'] : '';
+        $result = $detail->detailProfile($id);
+
+        return $result;
+    }
+
+
+    public function pageCreateAccount($params)
+    {
+        $register = new UserModel($this->connection);
+
+
+        if (isset($params['create-user'])) {
+            if ($params['create-user'] == "Create") {
+
+                $result = $register->createAccount($params);
+            }
+
+            $feedback = $register->getUser();
+            $feedbackErrors = $register->getErrors();
+
+            if ($feedback['success']) {
+                // Jika akun berhasil dibuat, redirect ke halaman create-account.php dengan parameter success.
+                header("Location:" . $this->baseUrl . "/view/user/create-account.php?success=" . $feedback['message']);
+                exit();
+            } else {
+                // Jika terdapat error, redirect ke halaman create-account.php dengan parameter error.
+                $errorData = implode("<br>", $feedbackErrors['errors']);
+                header("Location:" . $this->baseUrl . "/view/user/create-account.php?error=" . $errorData);
+                exit();
+            }
+        }
+    }
 }
